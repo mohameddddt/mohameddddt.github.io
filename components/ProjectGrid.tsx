@@ -5,20 +5,22 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CATS, PROJECTS, projectHref, type Cat, type Project } from '@/lib/projects';
 import { USES } from '@/lib/skills';
 import { toast } from '@/lib/client';
+import { gsap, Flip, ScrollTrigger, finePointer, reduced } from '@/lib/motion';
 import SkillIcon from './SkillIcon';
 import ProjectIcon from './ProjectIcon';
-import { ArrowOut, ArrowRight, CloseIcon, GitHubMark, Lock, LockSolid } from './Marks';
+import { ArrowOut, ArrowRight, CloseIcon, GitHubMark, Lock } from './Marks';
 
 type Filter = { cat: 'all' | Cat; skill: string | null };
 const matches = (p: Project, f: Filter) => (f.cat === 'all' || p.cats.includes(f.cat)) && (!f.skill || p.stack.includes(f.skill));
 
-function Card({ p, i, hidden }: { p: Project; i: number; hidden: boolean }) {
+function Row({ p, i, hidden, onShow }: { p: Project; i: number; hidden: boolean; onShow: (i: number | null) => void }) {
   const extra = p.stack.length - p.pills.length;
   return (
-    <article className={'card reveal' + (p.featured ? ' feat' : '') + (p.site ? ' is-live' : '')} data-slug={p.slug} hidden={hidden}
-      style={{ '--c': `var(--${p.color})`, '--d': `${(i % 3) * 0.07}s` } as React.CSSProperties}>
-      <div className="card-main">
-        <div className="card-top">
+    <article className={'row reveal' + (p.featured ? ' feat' : '') + (p.site ? ' is-live' : '')} data-slug={p.slug} hidden={hidden}
+      data-cursor="View" style={{ '--c': `var(--${p.color})` } as React.CSSProperties}>
+      <span className="row-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <div className="row-main" onPointerEnter={e => { if (e.pointerType === 'mouse') onShow(i); }} onPointerLeave={() => onShow(null)}>
+        <div className="row-meta">
           <ProjectIcon name={p.icon} />
           <span className="card-meta">{p.year}<span>{p.area}</span></span>
           {p.site ? <span className="badge live"><span className="pulse" />Live website</span>
@@ -26,6 +28,8 @@ function Card({ p, i, hidden }: { p: Project; i: number; hidden: boolean }) {
         </div>
         <h3><Link className="open" href={projectHref(p)}>{p.title}</Link></h3>
         <p className="sub">{p.sub}</p>
+      </div>
+      <div className="row-body">
         <p className="blurb">{p.blurb}</p>
         <ul className="kpis">{p.kpis.slice(0, p.featured ? 3 : 2).map(([b, t]) => <li key={t}><b>{b}</b>{t}</li>)}</ul>
         <ul className="pills" aria-label="Main tools">
@@ -35,14 +39,13 @@ function Card({ p, i, hidden }: { p: Project; i: number; hidden: boolean }) {
         <div className="card-foot">
           <span className="details" aria-hidden="true">Read more <ArrowRight /></span>
           <span className="card-links">
-            {p.site && <a className="live-link" href={p.site} target="_blank" rel="noopener">Visit site<ArrowOut /></a>}
-            {p.repo && <a className="ic-link" href={p.repo} target="_blank" rel="noopener" aria-label={`${p.title} source code on GitHub`} title="Source on GitHub"><GitHubMark size={17} /></a>}
+            {p.site && <a className="live-link" href={p.site} target="_blank" rel="noopener" data-cursor="">Visit site<ArrowOut /></a>}
+            {p.repo && <a className="ic-link" href={p.repo} target="_blank" rel="noopener" data-cursor="" aria-label={`${p.title} source code on GitHub`} title="Source on GitHub"><GitHubMark size={17} /></a>}
           </span>
         </div>
       </div>
       {p.featured && p.shots && (
-        <div className="card-shot" aria-hidden="true">
-          <div className="shot-bar"><span className="dots"><i /><i /><i /></span><span className="shot-url"><LockSolid />{p.siteLabel}</span></div>
+        <div className="row-shot" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.shots[0].src} alt="" width={1200} height={750} loading="lazy" decoding="async" />
         </div>
@@ -51,18 +54,54 @@ function Card({ p, i, hidden }: { p: Project; i: number; hidden: boolean }) {
   );
 }
 
-/** filterable project grid: category × skill, with a FLIP reflow when the filter changes */
+/** a window that follows the cursor over the project titles; its reel slides to the hovered project */
+function Preview({ index }: { index: number | null }) {
+  const box = useRef<HTMLDivElement>(null);
+  const reel = useRef<HTMLDivElement>(null);
+  const last = useRef(0);
+  useEffect(() => {
+    if (!finePointer() || reduced()) return;
+    const el = box.current!;
+    const xTo = gsap.quickTo(el, 'x', { duration: 0.7, ease: 'power3' }), yTo = gsap.quickTo(el, 'y', { duration: 0.7, ease: 'power3' });
+    const move = (e: PointerEvent) => { xTo(e.clientX); yTo(e.clientY); };
+    addEventListener('pointermove', move, { passive: true });
+    return () => removeEventListener('pointermove', move);
+  }, []);
+  useEffect(() => {
+    if (!finePointer() || reduced()) return;
+    const el = box.current!;
+    if (index === null) { gsap.to(el, { scale: 0, autoAlpha: 0, duration: 0.45, ease: 'power3.in' }); return; }
+    gsap.to(el, { scale: 1, autoAlpha: 1, duration: 0.6, ease: 'expo.out' });
+    gsap.to(reel.current, { yPercent: -100 * index, duration: last.current === index ? 0 : 0.8, ease: 'expo.inOut' });
+    last.current = index;
+  }, [index]);
+  return (
+    <div className="preview" ref={box} aria-hidden="true">
+      <div className="pv-reel" ref={reel}>
+        {PROJECTS.map(p => (
+          <div className="pv-panel" key={p.slug} style={{ '--c': `var(--${p.color})` } as React.CSSProperties}>
+            {p.shots
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <img src={p.shots[0].src} alt="" loading="lazy" decoding="async" />
+              : <><ProjectIcon name={p.icon} className="ic-tile big" /><p>{p.headline}</p></>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** filterable project index: category × skill, rows slide to their new places with GSAP Flip */
 export default function ProjectGrid() {
   const [f, setF] = useState<Filter>({ cat: 'all', skill: null });
+  const [hover, setHover] = useState<number | null>(null);
   const grid = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const ind = useRef<HTMLSpanElement>(null);
-  const before = useRef<Map<Element, DOMRect> | null>(null);
+  const flip = useRef<Flip.FlipState | null>(null);
 
   const update = (next: Filter) => {
-    const m = new Map<Element, DOMRect>();
-    grid.current?.querySelectorAll('.card:not([hidden])').forEach(c => m.set(c, c.getBoundingClientRect()));
-    before.current = m;
+    if (grid.current && !reduced()) flip.current = Flip.getState(grid.current.querySelectorAll('.row'));
     setF(next);
   };
 
@@ -80,41 +119,29 @@ export default function ProjectGrid() {
     return () => removeEventListener('filter-skill', on);
   }, []);
 
-  useLayoutEffect(() => {
-    // slide the pill under the active filter
+  const placeInd = () => {
     const b = bar.current?.querySelector<HTMLElement>('[aria-pressed="true"]'), i = ind.current;
     if (b && i) { i.style.width = b.offsetWidth + 'px'; i.style.transform = `translateX(${b.offsetLeft}px)`; }
-    const first = before.current; before.current = null;
-    if (!first || !grid.current) return;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    grid.current.querySelectorAll<HTMLElement>('.card:not([hidden])').forEach(c => {
-      c.classList.add('in');
-      if (reduce) return;
-      const was = first.get(c), now = c.getBoundingClientRect();
-      if (!was) c.animate([{ opacity: 0, transform: 'translateY(14px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 460, delay: 80, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
-      else if (Math.abs(was.left - now.left) > 1 || Math.abs(was.top - now.top) > 1)
-        c.animate([{ transform: `translate(${was.left - now.left}px,${was.top - now.top}px)` }, { transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' });
+  };
+
+  useLayoutEffect(() => {
+    placeInd();
+    const rows = grid.current?.querySelectorAll<HTMLElement>('.row:not([hidden])');
+    const state = flip.current; flip.current = null;
+    if (!state || !rows) return;
+    gsap.set(rows, { autoAlpha: 1, y: 0 }); // rows that were waiting below the fold are shown now
+    rows.forEach(r => r.classList.add('in'));
+    Flip.from(state, {
+      duration: 0.8, ease: 'expo.inOut', prune: true,
+      onEnter: els => gsap.fromTo(els, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'expo.out', stagger: 0.05 }),
+      onComplete: () => ScrollTrigger.refresh(),
     });
   }, [f]);
 
   useEffect(() => {
-    const place = () => {
-      const b = bar.current?.querySelector<HTMLElement>('[aria-pressed="true"]'), i = ind.current;
-      if (b && i) { i.style.width = b.offsetWidth + 'px'; i.style.transform = `translateX(${b.offsetLeft}px)`; }
-    };
-    addEventListener('resize', place); document.fonts?.ready.then(place);
-    return () => removeEventListener('resize', place);
+    addEventListener('resize', placeInd); document.fonts?.ready.then(placeInd);
+    return () => removeEventListener('resize', placeInd);
   }, []);
-
-  // pointer-following glow and border light, plus a gentle tilt on the featured screenshot
-  const onMove = (e: React.PointerEvent) => {
-    if (e.pointerType !== 'mouse') return;
-    const c = (e.target as HTMLElement).closest<HTMLElement>('.card'); if (!c) return;
-    const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-    c.style.setProperty('--mx', x + 'px'); c.style.setProperty('--my', y + 'px');
-    const s = c.querySelector<HTMLElement>('.card-shot');
-    if (s) { s.style.setProperty('--ry', ((x / r.width - 0.5) * 6).toFixed(2) + 'deg'); s.style.setProperty('--rx', ((0.5 - y / r.height) * 4).toFixed(2) + 'deg'); }
-  };
 
   const shown = PROJECTS.filter(p => matches(p, f)).length;
   return (
@@ -136,10 +163,11 @@ export default function ProjectGrid() {
         )}
       </div>
       <p className="sr-only" aria-live="polite">{shown} project{shown === 1 ? '' : 's'} shown{f.skill ? ' using ' + f.skill : ''}</p>
-      <div className="pgrid" ref={grid} onPointerMove={onMove}>
-        {/* every card stays mounted (hidden, not removed) so the FLIP step can measure where it was */}
-        {PROJECTS.map((p, i) => <Card key={p.slug} p={p} i={i} hidden={!matches(p, f)} />)}
+      <div className="plist" ref={grid}>
+        {/* every row stays mounted (hidden, not removed) so Flip can measure where it was */}
+        {PROJECTS.map((p, i) => <Row key={p.slug} p={p} i={i} hidden={!matches(p, f)} onShow={setHover} />)}
       </div>
+      <Preview index={hover} />
     </>
   );
 }

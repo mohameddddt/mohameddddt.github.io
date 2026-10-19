@@ -1,14 +1,21 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, JetBrains_Mono, Newsreader } from 'next/font/google';
+import { Anton, Fragment_Mono, Geist, Newsreader } from 'next/font/google';
 import './globals.css';
 import TopBar from '@/components/TopBar';
 import CommandMenu from '@/components/CommandMenu';
 import Footer from '@/components/Footer';
-import { BackToTop, RevealObserver, Spotlight, Toaster } from '@/components/Effects';
+import Field from '@/components/three/Field';
+import SmoothScroll from '@/components/motion/SmoothScroll';
+import Reveal from '@/components/motion/Reveal';
+import Preloader from '@/components/motion/Preloader';
+import Cursor from '@/components/motion/Cursor';
+import PageTransition from '@/components/motion/PageTransition';
+import { BackToTop, Toaster } from '@/components/Effects';
 import { EMAIL, GITHUB, LINKEDIN, NAME, SITE_URL } from '@/lib/site';
 
 const sans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono', display: 'swap' });
+const display = Anton({ subsets: ['latin'], weight: '400', variable: '--font-display', display: 'swap' });
+const mono = Fragment_Mono({ subsets: ['latin'], weight: '400', variable: '--font-mono', display: 'swap' });
 const serif = Newsreader({ subsets: ['latin'], style: ['italic'], axes: ['opsz'], variable: '--font-serif', display: 'swap' });
 
 const DESCRIPTION = 'AI engineering student at ENSIA building machine-learning systems end to end: FPL points prediction, speech emotion recognition, drone routing, medical RAG, and on-device computer vision.';
@@ -27,10 +34,11 @@ export const metadata: Metadata = {
   icons: { apple: '/assets/apple-touch-icon.png' },
 };
 
-export const viewport: Viewport = { themeColor: '#0B0D11' };
+export const viewport: Viewport = { themeColor: '#0A0A0B' };
 
-// runs before first paint: picks the saved or system theme so there is no flash, and marks JS as available
-const THEME_SCRIPT = `(function(){var d=document.documentElement,t=null;d.classList.add('js');try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.setAttribute('data-theme',t)})();`;
+// runs before first paint: picks the saved or system theme so there is no flash, marks JS as available,
+// and skips the preloader on a repeat visit in the same session or when motion is reduced
+const BOOT_SCRIPT = `(function(){var d=document.documentElement,t=null,s=null;d.classList.add('js');try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.setAttribute('data-theme',t);try{s=sessionStorage.getItem('intro')}catch(e){}if(s||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('no-intro')})();`;
 
 const PERSON = {
   '@context': 'https://schema.org', '@type': 'Person', name: NAME, url: SITE_URL + '/',
@@ -43,22 +51,27 @@ const PERSON = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON) }} />
       </head>
       <body>
         <div id="top" />
         <a className="skip" href="#content">Skip to content</a>
-        <Spotlight />
+        <SmoothScroll />
+        <Field />
+        <div className="grain" aria-hidden="true" />
         <TopBar />
         {children}
         <Footer />
         <BackToTop />
         <CommandMenu />
         <Toaster />
-        <RevealObserver />
+        <Cursor />
+        <PageTransition />
+        <Preloader />
+        <Reveal />
       </body>
     </html>
   );

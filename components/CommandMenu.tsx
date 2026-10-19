@@ -45,14 +45,18 @@ export default function CommandMenu() {
     const openMenu = () => {
       const d = dlg.current; if (!d || d.open) return;
       setQ(''); setActive(0); d.showModal(); input.current?.focus();
+      document.documentElement.classList.add('locked');
     };
+    const closed = () => document.documentElement.classList.remove('locked');
+    dlg.current?.addEventListener('close', closed);
     const key = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); if (dlg.current?.open) dlg.current.close(); else openMenu(); return; }
       const t = document.activeElement as HTMLElement | null;
       if (e.key === '/' && !dlg.current?.open && !/INPUT|TEXTAREA|SELECT/.test(t?.tagName || '') && !t?.isContentEditable) { e.preventDefault(); openMenu(); }
     };
     addEventListener('open-cmdk', openMenu); addEventListener('keydown', key);
-    return () => { removeEventListener('open-cmdk', openMenu); removeEventListener('keydown', key); };
+    const d = dlg.current;
+    return () => { removeEventListener('open-cmdk', openMenu); removeEventListener('keydown', key); d?.removeEventListener('close', closed); };
   }, []);
 
   useEffect(() => { list.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' }); }, [act]);
@@ -69,7 +73,7 @@ export default function CommandMenu() {
 
   let group = '';
   return (
-    <dialog className="cmdk" ref={dlg} aria-label="Command menu" onClick={e => { if (e.target === dlg.current) dlg.current?.close(); }}>
+    <dialog className="cmdk" ref={dlg} aria-label="Command menu" data-lenis-prevent onClick={e => { if (e.target === dlg.current) dlg.current?.close(); }}>
       <div className="cmdk-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
         <input ref={input} value={q} onChange={e => { setQ(e.target.value); setActive(0); }} onKeyDown={onKey}

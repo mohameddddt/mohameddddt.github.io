@@ -72,16 +72,16 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <main id="content" className="pp" style={tint}>
-      <div className="wrap">
-        <Link className="back reveal" href="/#projects"><ArrowLeft />All projects</Link>
+      <div className="wrap-x">
+        <Link className="back reveal" href="/#projects" data-magnetic="0.3"><ArrowLeft />All projects</Link>
 
-        <header className="pp-head">
+        <header className="pp-head" data-field="work">
           <Words as="h1" text={p.title} className="pp-title" />
           <p className="pp-sub reveal" style={{ '--d': '.15s' } as CSSProperties}>{p.sub}</p>
         </header>
 
         {/* ---------- cover: the project at a glance, with something to look at or play with ---------- */}
-        <section className={'pp-cover reveal scale' + (p.slug === 'drone-delivery' || p.audio ? ' interactive' : '')} aria-label={`${p.title} cover`}>
+        <section className={'pp-cover reveal scale' + (p.slug === 'drone-delivery' || p.audio ? ' interactive' : '')} aria-label={`${p.title} cover`} data-field="work-cover">
           <div className="cover-text">
             <div className="cover-badges">
               <ProjectIcon name={p.icon} className="ic-tile cover-ic" />
@@ -100,7 +100,7 @@ export default async function ProjectPage({ params }: Params) {
         </section>
 
         {/* ---------- story + facts ---------- */}
-        <section className="pp-intro">
+        <section className="pp-intro" data-field="work">
           <div className="pp-story">
             <Words text={p.headline} className="pp-h2" />
             {p.overview.map((t, i) => <p key={i} className="reveal" dangerouslySetInnerHTML={{ __html: t }} />)}
@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: Params) {
         </section>
 
         {/* ---------- the numbers ---------- */}
-        <section className="pp-kpis reveal stagger" aria-label="Key numbers">
+        <section className="pp-kpis reveal stagger" aria-label="Key numbers" data-field="work-numbers">
           {p.kpis.map(([b, t], i) => <div key={t} style={{ '--i': i } as CSSProperties}><b><CountUp value={b} /></b><span>{t}</span></div>)}
         </section>
 
@@ -132,7 +132,7 @@ export default async function ProjectPage({ params }: Params) {
           <section className="pp-gallery" aria-label="Screenshots">
             {p.shots.map((s, i) => (
               <figure key={s.src} className={'reveal scale' + (i === 0 ? ' wide' : '')} style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
-                <div className="gallery-panel"><Browser src={s.src} label={p.siteLabel || ''} alt={`${p.title}: ${s.caption}`} /></div>
+                <div className="gallery-panel" data-parallax="-40"><Browser src={s.src} label={p.siteLabel || ''} alt={`${p.title}: ${s.caption}`} /></div>
                 <figcaption>{s.caption}</figcaption>
               </figure>
             ))}
@@ -140,7 +140,7 @@ export default async function ProjectPage({ params }: Params) {
         )}
 
         {/* ---------- tech stack, with logos; each one links to every project that uses it ---------- */}
-        <section className="pp-stack" aria-labelledby="h-stack">
+        <section className="pp-stack" aria-labelledby="h-stack" data-field="work">
           <p className="kicker reveal"><span>{p.stack.length}</span>tools</p>
           <Words id="h-stack" text="Built with" em="all of this." />
           <div className="pp-stack-grid">
@@ -162,7 +162,7 @@ export default async function ProjectPage({ params }: Params) {
 
         {/* ---------- next ---------- */}
         <nav className="pp-next reveal" aria-label="Next project">
-          <Link className="next-link" href={projectHref(next)} style={{ '--c': `var(--${next.color})` } as CSSProperties}>
+          <Link className="next-link" href={projectHref(next)} data-cursor="Next" style={{ '--c': `var(--${next.color})` } as CSSProperties}>
             <span className="next-k">Next project</span>
             <span className="next-title">{next.title}<ArrowRight /></span>
             <span className="next-sub">{next.sub}</span>
