@@ -5,7 +5,7 @@ export const metadata = { title: 'Page not found', robots: { index: false } };
 
 export default function NotFound() {
   return (
-    <main id="content" className="nf">
+    <main id="content" className="nf" data-field="lost">
       <div className="wrap">
         {/* a delivery route that leaves the map: the hub, two served stops, then a leg to nowhere */}
         <svg className="nf-map" viewBox="0 0 320 120" aria-hidden="true">
