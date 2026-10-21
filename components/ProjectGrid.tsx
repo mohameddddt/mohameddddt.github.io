@@ -13,13 +13,13 @@ import { ArrowOut, ArrowRight, CloseIcon, GitHubMark, Lock } from './Marks';
 type Filter = { cat: 'all' | Cat; skill: string | null };
 const matches = (p: Project, f: Filter) => (f.cat === 'all' || p.cats.includes(f.cat)) && (!f.skill || p.stack.includes(f.skill));
 
-function Row({ p, i, hidden, onShow }: { p: Project; i: number; hidden: boolean; onShow: (i: number | null) => void }) {
+function Row({ p, i, hidden }: { p: Project; i: number; hidden: boolean }) {
   const extra = p.stack.length - p.pills.length;
   return (
     <article className={'row reveal' + (p.featured ? ' feat' : '') + (p.site ? ' is-live' : '')} data-slug={p.slug} hidden={hidden}
       data-cursor="View" style={{ '--c': `var(--${p.color})` } as React.CSSProperties}>
       <span className="row-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-      <div className="row-main" onPointerEnter={e => { if (e.pointerType === 'mouse') onShow(i); }} onPointerLeave={() => onShow(null)}>
+      <div className="row-main" data-i={i}>
         <div className="row-meta">
           <ProjectIcon name={p.icon} />
           <span className="card-meta">{p.year}<span>{p.area}</span></span>
@@ -54,27 +54,48 @@ function Row({ p, i, hidden, onShow }: { p: Project; i: number; hidden: boolean;
   );
 }
 
-/** a window that follows the cursor over the project titles; its reel slides to the hovered project */
-function Preview({ index }: { index: number | null }) {
+/**
+ * a window that trails the cursor over the project titles; its reel slides to the hovered project.
+ * What is under the pointer is checked every frame, not on enter/leave: those never fire when a row scrolls
+ * away from a still cursor (Lenis, keyboard, a menu jump) or is hidden by a filter, which left the window
+ * stuck open and following the mouse around the page. It is also kept inside the hovered row and the viewport.
+ */
+function Preview() {
   const box = useRef<HTMLDivElement>(null);
   const reel = useRef<HTMLDivElement>(null);
-  const last = useRef(0);
   useEffect(() => {
     if (!finePointer() || reduced()) return;
-    const el = box.current!;
+    const el = box.current!, root = document.documentElement;
     const xTo = gsap.quickTo(el, 'x', { duration: 0.7, ease: 'power3' }), yTo = gsap.quickTo(el, 'y', { duration: 0.7, ease: 'power3' });
-    const move = (e: PointerEvent) => { xTo(e.clientX); yTo(e.clientY); };
+    let x = -1, y = -1, shown = -1, last = -1;
+    const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), Math.max(lo, hi));
+    const tick = () => {
+      const main = x < 0 || root.classList.contains('locked') ? null
+        : document.elementFromPoint(x, y)?.closest<HTMLElement>('.row-main');
+      const i = main ? Number(main.dataset.i) : -1;
+      if (main) {
+        // the window hangs from its top-left corner at the pointer
+        const r = main.closest('.row')!.getBoundingClientRect(), m = 12;
+        xTo(clamp(x, Math.max(r.left, m), Math.min(r.right, innerWidth - m) - el.offsetWidth));
+        yTo(clamp(y, Math.max(r.top, m), Math.min(r.bottom, innerHeight - m) - el.offsetHeight));
+      }
+      if (i === shown) return;
+      if (i < 0) gsap.to(el, { scale: 0, autoAlpha: 0, duration: 0.4, ease: 'power3.in', overwrite: 'auto' });
+      else {
+        if (shown < 0) gsap.set(el, { x, y }); // appear where the pointer is, not where it last left
+        gsap.to(el, { scale: 1, autoAlpha: 1, duration: 0.6, ease: 'expo.out', overwrite: 'auto' });
+        gsap.to(reel.current, { yPercent: -100 * i, duration: last === i || shown < 0 ? 0 : 0.8, ease: 'expo.inOut', overwrite: true });
+        last = i;
+      }
+      shown = i;
+    };
+    const move = (e: PointerEvent) => { if (e.pointerType === 'mouse') { x = e.clientX; y = e.clientY; } };
+    const out = (e: PointerEvent) => { if (!e.relatedTarget) x = -1; }; // the pointer left the window
     addEventListener('pointermove', move, { passive: true });
-    return () => removeEventListener('pointermove', move);
+    document.addEventListener('pointerout', out);
+    gsap.ticker.add(tick);
+    return () => { gsap.ticker.remove(tick); removeEventListener('pointermove', move); document.removeEventListener('pointerout', out); };
   }, []);
-  useEffect(() => {
-    if (!finePointer() || reduced()) return;
-    const el = box.current!;
-    if (index === null) { gsap.to(el, { scale: 0, autoAlpha: 0, duration: 0.45, ease: 'power3.in' }); return; }
-    gsap.to(el, { scale: 1, autoAlpha: 1, duration: 0.6, ease: 'expo.out' });
-    gsap.to(reel.current, { yPercent: -100 * index, duration: last.current === index ? 0 : 0.8, ease: 'expo.inOut' });
-    last.current = index;
-  }, [index]);
   return (
     <div className="preview" ref={box} aria-hidden="true">
       <div className="pv-reel" ref={reel}>
@@ -94,7 +115,6 @@ function Preview({ index }: { index: number | null }) {
 /** filterable project index: category × skill, rows slide to their new places with GSAP Flip */
 export default function ProjectGrid() {
   const [f, setF] = useState<Filter>({ cat: 'all', skill: null });
-  const [hover, setHover] = useState<number | null>(null);
   const grid = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const ind = useRef<HTMLSpanElement>(null);
@@ -165,9 +185,9 @@ export default function ProjectGrid() {
       <p className="sr-only" aria-live="polite">{shown} project{shown === 1 ? '' : 's'} shown{f.skill ? ' using ' + f.skill : ''}</p>
       <div className="plist" ref={grid}>
         {/* every row stays mounted (hidden, not removed) so Flip can measure where it was */}
-        {PROJECTS.map((p, i) => <Row key={p.slug} p={p} i={i} hidden={!matches(p, f)} onShow={setHover} />)}
+        {PROJECTS.map((p, i) => <Row key={p.slug} p={p} i={i} hidden={!matches(p, f)} />)}
       </div>
-      <Preview index={hover} />
+      <Preview />
     </>
   );
 }

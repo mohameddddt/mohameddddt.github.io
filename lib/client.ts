@@ -1,7 +1,7 @@
 // Small browser-only helpers shared by client components. Components talk through window events,
 // so the top bar, the command menu, the skills section and the project grid stay independent.
 
-import { EMAIL } from './site';
+import { BG, EMAIL } from './site';
 import { scrollToTarget } from './motion';
 
 export const toast = (msg: string) => dispatchEvent(new CustomEvent('toast', { detail: msg }));
@@ -11,7 +11,7 @@ export const filterBySkill = (skill: string) => dispatchEvent(new CustomEvent('f
 export function setTheme(t: 'light' | 'dark', save: boolean) {
   const root = document.documentElement;
   root.setAttribute('data-theme', t);
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'light' ? '#ECEAE4' : '#0A0A0B');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', BG[t]);
   if (save) { try { localStorage.setItem('theme', t); } catch { /* private mode */ } }
   dispatchEvent(new Event('themechange'));
 }

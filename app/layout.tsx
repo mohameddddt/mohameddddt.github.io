@@ -11,7 +11,7 @@ import Preloader from '@/components/motion/Preloader';
 import Cursor from '@/components/motion/Cursor';
 import PageTransition from '@/components/motion/PageTransition';
 import { BackToTop, Toaster } from '@/components/Effects';
-import { EMAIL, GITHUB, LINKEDIN, NAME, SITE_URL } from '@/lib/site';
+import { BG, EMAIL, GITHUB, LINKEDIN, NAME, PALETTE, SITE_URL } from '@/lib/site';
 
 const sans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const display = Anton({ subsets: ['latin'], weight: '400', variable: '--font-display', display: 'swap' });
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   icons: { apple: '/assets/apple-touch-icon.png' },
 };
 
-export const viewport: Viewport = { themeColor: '#0A0A0B' };
+export const viewport: Viewport = { themeColor: BG.dark };
 
 // runs before first paint: picks the saved or system theme so there is no flash, marks JS as available,
 // and skips the preloader on a repeat visit in the same session or when motion is reduced
@@ -51,7 +51,7 @@ const PERSON = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en" data-palette={PALETTE} className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON) }} />
