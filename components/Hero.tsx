@@ -41,7 +41,6 @@ export default function Hero() {
         <div className="id hero-in">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="avatar" src="/assets/portrait.jpg" alt="Portrait of Mohamed Sahnoune Toubal" width={56} height={56} />
-          <span className="status"><span className="pulse" />Open to internships</span>
         </div>
         <p className="role hero-in">AI Engineer <span>·</span> ENSIA ’28 <span>·</span> Algiers</p>
       </div>

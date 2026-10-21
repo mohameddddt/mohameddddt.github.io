@@ -312,10 +312,6 @@ html.locked .topbar{ transform:none; }
 .hero-top{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 32px; }
 .id{ display:flex; align-items:center; gap:14px; }
 .avatar{ width:56px; height:56px; border-radius:50%; object-fit:cover; object-position:50% 28%; box-shadow:0 0 0 1px var(--line-2), 0 0 0 4px var(--bg), 0 0 0 5px var(--line); }
-.status{
-  display:inline-flex; align-items:center; gap:10px; height:34px; padding:0 14px 0 12px; border-radius:999px;
-  border:1px solid var(--line-2); background:var(--glass); font:12px/1 var(--f-mono); letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
-}
 .role{ font:12.5px/1.4 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
 .role span{ color:var(--accent); margin:0 8px; }
 .hero-mid{ flex:1; display:flex; align-items:flex-end; justify-content:flex-end; }
