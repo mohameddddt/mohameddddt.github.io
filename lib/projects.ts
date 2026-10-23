@@ -248,8 +248,8 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: 'qnow', title: 'QNow', year: '2026', area: 'Mobile app', color: 'r3', icon: 'queue', cats: ['apps'],
-    repo: GH + 'MobDevProject',
+    slug: 'qnow', title: 'QNow', year: '2026', area: 'Mobile app', color: 'r3', icon: 'queue', cats: ['apps', 'live'],
+    site: 'https://qnow.netlify.app', siteLabel: 'qnow.netlify.app', repo: GH + 'MobDevProject',
     sub: 'Queue management · Mobile',
     headline: 'Waiting in line, without the line.',
     blurb: 'A virtual queue for businesses, so customers can wait for their turn without standing in line.',
