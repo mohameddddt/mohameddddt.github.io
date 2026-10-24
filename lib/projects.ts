@@ -31,6 +31,8 @@ export type Project = {
   pills: string[];
   stack: string[];
   shots?: { src: string; caption: string }[];
+  /** portrait phone screenshots (720×1600), shown in a phone frame instead of a browser window */
+  phones?: { src: string; caption: string }[];
   audio?: { src: string; emotion: string; sentence: string; speaker: string }[];
   /** trusted HTML (bold numbers, an Arabic word) */
   overview: string[];
@@ -235,6 +237,14 @@ export const PROJECTS: Project[] = [
     platform: 'Android app (Flutter) + Flask API',
     kpis: [['Append-only', 'stock ledger'], ['Idempotent', 'offline sync'], ['AR · FR · EN', 'with RTL']],
     pills: ['Flutter', 'BLoC', 'SQLite', 'Flask', 'Supabase'],
+    phones: [
+      { src: '/assets/projects/jerd/products.webp', caption: 'Products: search by name or barcode, filter what is low or out, and scan from anywhere.' },
+      { src: '/assets/projects/jerd/count.webp', caption: 'Stock count: scan the shelf and see only what differs from the ledger.' },
+      { src: '/assets/projects/jerd/alerts.webp', caption: 'Alerts: what to restock, most urgent first, with one tap to record a delivery.' },
+      { src: '/assets/projects/jerd/sync.webp', caption: 'Sync: whether the outbox has reached the server, with a manual push for when signal returns.' },
+      { src: '/assets/projects/jerd/settings.webp', caption: 'Settings: Arabic, French or English, light or dark, and staff accounts.' },
+      { src: '/assets/projects/jerd/drawer.webp', caption: 'Today at a glance: what came in, what sold and what was adjusted.' },
+    ],
     stack: ['Dart', 'Python', 'SQL', 'Flutter', 'BLoC', 'GetIt', 'SQLite', 'Flask', 'SQLAlchemy', 'JWT', 'PostgreSQL', 'Supabase', 'Firebase Cloud Messaging', 'Gemini API', 'Render', 'GitHub Actions', 'pytest', 'Sentry'],
     overview: [
       'Offline-first stock control for a small shop — <span lang="ar" dir="rtl">جرد</span> is Arabic for a stock count. The owner scans a barcode and records “+12 received” or “−1 sold”, even in a basement with no signal.',

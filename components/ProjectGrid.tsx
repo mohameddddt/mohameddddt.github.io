@@ -104,6 +104,9 @@ function Preview() {
             {p.shots
               // eslint-disable-next-line @next/next/no-img-element
               ? <img src={p.shots[0].src} alt="" loading="lazy" decoding="async" />
+              : p.phones
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <div className="pv-phones">{p.phones.slice(0, 2).map(s => <div className="phone" key={s.src}><img src={s.src} alt="" loading="lazy" decoding="async" /></div>)}</div>
               : <><ProjectIcon name={p.icon} className="ic-tile big" /><p>{p.headline}</p></>}
           </div>
         ))}

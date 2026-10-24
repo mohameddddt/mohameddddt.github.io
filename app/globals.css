@@ -520,6 +520,11 @@ html.locked .topbar{ transform:none; }
   background:radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--c) 45%, transparent), transparent 60%), linear-gradient(160deg, color-mix(in oklab, var(--c) 30%, #0A0B0D), #0A0B0D 80%);
 }
 .pv-panel img{ width:100%; height:100%; object-fit:cover; object-position:top; margin:-26px; max-width:none; width:calc(100% + 52px); height:calc(100% + 52px); }
+/* two phones rising from the bottom edge of the window */
+.pv-panel:has(.pv-phones){ overflow:hidden; }
+.pv-phones{ position:relative; top:24%; display:flex; gap:16px; width:74%; }
+.pv-phones .phone{ flex:1; padding:4%; }
+.pv-panel .pv-phones img{ margin:0; width:100%; height:auto; object-fit:initial; }
 .pv-panel .ic-tile.big{ width:96px; height:96px; }
 .pv-panel p{ font:italic 400 clamp(19px,1.5vw,24px)/1.2 var(--f-serif); max-width:18ch; }
 
@@ -787,6 +792,18 @@ html.locked .topbar{ transform:none; }
 .shot-back{ position:absolute; left:0; bottom:0; width:48%; transform:rotate(-2.5deg); }
 .shot-back .frame{ box-shadow:0 30px 50px -16px rgba(0,0,0,.75); }
 
+/* phone screenshots: a dark bezel with a punch-hole camera; elliptical radii keep the corners round at 9:20 */
+.phone{ position:relative; padding:3.4%; border-radius:13% / 5.85%; background:#101217; box-shadow:inset 0 0 0 1px rgba(255,255,255,.14), 0 30px 60px -24px rgba(0,0,0,.65); }
+.phone img{ display:block; width:100%; height:auto; border-radius:10% / 4.5%; }
+.phone::after{ content:""; position:absolute; left:50%; top:4.6%; width:4.2%; aspect-ratio:1; border-radius:50%; background:#101217; transform:translateX(-50%); }
+.phone-stack{ display:flex; justify-content:center; align-items:center; padding:2% 0 4%; }
+.phone-stack > div{ width:min(36%,230px); flex:0 0 auto; }
+.ph-front{ position:relative; z-index:1; }
+.ph-side{ opacity:.9; }
+.ph-side.l{ margin-right:-9%; transform:translateY(7%) rotate(-7deg) scale(.88); }
+.ph-side.r{ margin-left:-9%; transform:translateY(7%) rotate(7deg) scale(.88); }
+.ph-side .phone{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.1), 0 30px 50px -16px rgba(0,0,0,.8); }
+
 .orbit{ position:relative; width:min(430px,100%); aspect-ratio:1; margin:0 auto; container-type:inline-size; }
 .orbit .ring{ position:absolute; border-radius:50%; border:1px dashed rgba(255,255,255,.16); animation:spin 52s linear infinite; }
 .orbit .r-out{ inset:3%; --rad:47cqw; }
@@ -863,6 +880,10 @@ html.locked .topbar{ transform:none; }
   padding:clamp(16px,4vw,56px); margin:-20px 0;
   background:radial-gradient(700px circle at 100% 0%, color-mix(in oklab, var(--c) 30%, transparent), transparent 60%), linear-gradient(160deg, color-mix(in oklab, var(--c) 22%, #0A0B0D), #0A0B0D 75%);
 }
+.pp-gallery.phones{ grid-template-columns:1fr 1fr; gap:34px 16px; }
+@media (min-width:900px){ .pp-gallery.phones{ grid-template-columns:repeat(3,1fr); gap:44px 22px; } }
+.pp-gallery.phones .gallery-panel{ padding:clamp(18px,3vw,40px) clamp(14px,3vw,40px); }
+.pp-gallery.phones .phone{ max-width:240px; margin:0 auto; }
 .pp-gallery figcaption{ padding-top:14px; font:12px/1.5 var(--f-mono); letter-spacing:.04em; color:var(--ink-3); background:var(--bg); position:relative; }
 
 .pp-stack{ margin-top:clamp(110px,16vh,170px); }

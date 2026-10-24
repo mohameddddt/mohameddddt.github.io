@@ -37,9 +37,27 @@ const Browser = ({ src, label, alt, lazy = true }: { src: string; label: string;
   </div>
 );
 
+const Phone = ({ src, alt, lazy = true }: { src: string; alt: string; lazy?: boolean }) => (
+  <div className="phone">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={src} alt={alt} width={720} height={1600} loading={lazy ? 'lazy' : 'eager'} decoding="async" />
+  </div>
+);
+
 function CoverVisual({ p }: { p: Project }) {
   if (p.slug === 'drone-delivery') return <div className="cover-app"><Playground seed={11} label="drone-routing" /></div>;
   if (p.audio) return <div className="cover-app"><AudioSamples clips={p.audio} /></div>;
+  if (p.phones) {
+    // the first screen up front, the next two fanned out behind it
+    const [front, left, right] = p.phones;
+    return (
+      <div className="phone-stack">
+        {left && <div className="ph-side l"><Phone src={left.src} alt="" lazy={false} /></div>}
+        <div className="ph-front parallax"><Phone src={front.src} alt={`${p.title}: ${front.caption}`} lazy={false} /></div>
+        {right && <div className="ph-side r"><Phone src={right.src} alt="" lazy={false} /></div>}
+      </div>
+    );
+  }
   if (p.shots) {
     return (
       <div className="shot-stack">
@@ -133,6 +151,17 @@ export default async function ProjectPage({ params }: Params) {
             {p.shots.map((s, i) => (
               <figure key={s.src} className={'reveal scale' + (i === 0 ? ' wide' : '')} style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
                 <div className="gallery-panel" data-parallax="-40"><Browser src={s.src} label={p.siteLabel || ''} alt={`${p.title}: ${s.caption}`} /></div>
+                <figcaption>{s.caption}</figcaption>
+              </figure>
+            ))}
+          </section>
+        )}
+
+        {p.phones && (
+          <section className="pp-gallery phones" aria-label="Screenshots">
+            {p.phones.map((s, i) => (
+              <figure key={s.src} className="reveal scale" style={{ '--d': `${(i % 3) * 0.08}s` } as CSSProperties}>
+                <div className="gallery-panel" data-parallax={-20 - (i % 3) * 15}><Phone src={s.src} alt={`${p.title}: ${s.caption}`} /></div>
                 <figcaption>{s.caption}</figcaption>
               </figure>
             ))}
