@@ -566,6 +566,9 @@ html.locked .topbar{ transform:none; }
 .ic-queue circle:nth-child(2){ animation-delay:.12s !important; }
 .ic-queue circle:nth-child(3){ animation-delay:.24s !important; }
 @keyframes hop{ 0%,60%,100%{ transform:none; } 30%{ transform:translateY(-5px); } }
+.ic-pulse .ecg{ stroke-dasharray:1 1; }
+.row:hover .ic-pulse .ecg, .pv-panel .ic-pulse .ecg{ animation:trace 1.6s var(--ease) infinite; }
+@keyframes trace{ from{ stroke-dashoffset:1; } to{ stroke-dashoffset:-1; } }
 
 /* ============ PLAYGROUND ============ */
 .pg-layout{ display:grid; gap:32px; }
