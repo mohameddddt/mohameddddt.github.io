@@ -100,16 +100,19 @@ export default function TopBar() {
       </header>
 
       <div className="mmenu" id="mobile-menu" ref={menuRef} aria-hidden={!open} inert={!open}>
-        <nav aria-label="Sections">
-          {SECTIONS.map((s, i) => (
-            <Link key={s.id} className="mm-link" href={`/#${s.id}`} onClick={() => setOpen(false)}>
-              <span><i>0{i + 1}</i>{s.label}</span>
-            </Link>
-          ))}
-        </nav>
-        <div className="mm-foot">
-          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-          <span><a href={GITHUB} target="_blank" rel="noopener">GitHub</a> · <a href={LINKEDIN} target="_blank" rel="noopener">LinkedIn</a></span>
+        {/* scrolls on its own below the bar; data-lenis-prevent so the paused Lenis doesn't eat the wheel */}
+        <div className="mm-scroll" data-lenis-prevent>
+          <nav aria-label="Sections">
+            {SECTIONS.map((s, i) => (
+              <Link key={s.id} className="mm-link" href={`/#${s.id}`} onClick={() => setOpen(false)}>
+                <span><i>0{i + 1}</i>{s.label}</span>
+              </Link>
+            ))}
+          </nav>
+          <div className="mm-foot">
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <span><a href={GITHUB} target="_blank" rel="noopener">GitHub</a> · <a href={LINKEDIN} target="_blank" rel="noopener">LinkedIn</a></span>
+          </div>
         </div>
       </div>
     </>

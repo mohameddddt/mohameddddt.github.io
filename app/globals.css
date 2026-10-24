@@ -276,8 +276,13 @@ html.locked .topbar{ transform:none; }
 .progress{ position:absolute; left:0; right:0; bottom:-1px; height:1px; background:var(--accent); transform-origin:0 50%; transform:scaleX(var(--p,0)); }
 
 .mmenu{
-  position:fixed; inset:0; z-index:45; display:flex; flex-direction:column; justify-content:space-between; gap:32px;
-  padding:calc(var(--bar-h) + 28px) var(--gx) 32px; background:var(--bg-2); visibility:hidden; opacity:0; overflow-y:auto;
+  position:fixed; inset:0; z-index:45; display:flex; flex-direction:column;
+  padding-top:var(--bar-h); background:var(--bg-2); visibility:hidden; opacity:0;
+}
+/* the scroll area starts under the bar, so the big links never slide behind the portrait/name */
+.mm-scroll{
+  flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  display:flex; flex-direction:column; justify-content:space-between; gap:32px; padding:28px var(--gx) 32px;
 }
 .mm-link{ display:block; overflow:hidden; border-bottom:1px solid var(--line); }
 .mm-link > span{ display:flex; align-items:baseline; gap:14px; padding:4px 0 2px; font:400 clamp(46px,12vw,96px)/1 var(--f-display); text-transform:uppercase; color:var(--ink); }
