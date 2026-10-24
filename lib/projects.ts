@@ -171,6 +171,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'somatrack', title: 'SomaTrack', year: '2026', area: 'ML · Web app', color: 'r4', icon: 'pulse', cats: ['ml', 'apps', 'live'],
     site: 'https://somatrack-audit-web.onrender.com', siteLabel: 'somatrack-audit-web.onrender.com',
+    repo: GH + 'SomaTrack-Predicting-Study-Related-Physical-Ailments',
     sub: 'Ergonomic risk audit for students, from a plain-language description',
     headline: 'What your study habits are doing to your back.',
     blurb: 'Describe how you study in your own words; seven models trained on a survey of fellow students estimate the risk of back pain, neck strain, headaches and four other ailments.',
