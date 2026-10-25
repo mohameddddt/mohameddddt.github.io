@@ -75,7 +75,7 @@ export default function TopBar() {
         <div className="bar-in wrap-x">
           <Link className="brand" href="/" aria-label="Mohamed Sahnoune Toubal, home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/portrait.jpg" alt="" width={30} height={30} />
+            <img src="/icon.svg" alt="" width={30} height={30} />
             <span>Mohamed S. Toubal</span>
           </Link>
           <p className="bar-clock" aria-label="Local time in Algiers"><span>Algiers</span><Clock /></p>

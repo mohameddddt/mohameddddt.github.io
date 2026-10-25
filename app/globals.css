@@ -244,7 +244,7 @@ html.lenis, html.lenis body{ height:auto; }
 html.locked .topbar{ transform:none; }
 .bar-in{ display:flex; align-items:center; gap:clamp(14px,2.4vw,40px); height:100%; }
 .brand{ display:flex; align-items:center; gap:10px; font:13px/1 var(--f-mono); letter-spacing:.06em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
-.brand img{ width:30px; height:30px; border-radius:50%; object-fit:cover; object-position:50% 28%; box-shadow:0 0 0 1px var(--line-2); transition:transform .6s var(--spring); }
+.brand img{ width:30px; height:30px; border-radius:7px; box-shadow:0 0 0 1px var(--line-2); transition:transform .6s var(--spring); }
 .brand:hover img{ transform:rotate(-10deg) scale(1.1); }
 .bar-clock{ display:flex; gap:10px; font:12px/1 var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap; }
 .bar-clock time{ color:var(--ink); font-variant-numeric:tabular-nums; }
