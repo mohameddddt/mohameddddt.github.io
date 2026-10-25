@@ -13,6 +13,7 @@ const ICONS: Record<IconName, string> = {
   scan: '<svg class="ic-scan" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><rect x="4" y="5" width="1.7" height="14" rx=".4"/><rect x="7" y="5" width="1" height="14" rx=".4"/><rect x="9.3" y="5" width="2.3" height="14" rx=".4"/><rect x="13" y="5" width="1" height="14" rx=".4"/><rect x="15.3" y="5" width="1.7" height="14" rx=".4"/><rect x="18.3" y="5" width="1.7" height="14" rx=".4"/></g><rect class="beam" x="2" y="11.3" width="20" height="1.4" rx=".7"/></svg>',
   queue: '<svg class="ic-queue" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="13" r="2.6"/><circle cx="12" cy="13" r="2.6"/><circle cx="19" cy="13" r="2.6"/></svg>',
   pulse: '<svg class="ic-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="ecg" pathLength="1" d="M2 12h4.5l2-5 3.5 11 2.5-8 1.5 2H22"/></svg>',
+  image: '<svg class="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle class="sun" cx="15.5" cy="9" r="1.9" fill="currentColor" stroke="none"/><path d="m3.5 18 5.5-6 4 4.5 2-2 5 4.5"/></svg>',
 };
 
 export default function ProjectIcon({ name, className = 'ic-tile' }: { name: IconName; className?: string }) {

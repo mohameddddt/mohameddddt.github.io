@@ -574,6 +574,9 @@ html.locked .topbar{ transform:none; }
 .ic-pulse .ecg{ stroke-dasharray:1 1; }
 .row:hover .ic-pulse .ecg, .pv-panel .ic-pulse .ecg{ animation:trace 1.6s var(--ease) infinite; }
 @keyframes trace{ from{ stroke-dashoffset:1; } to{ stroke-dashoffset:-1; } }
+.ic-image .sun{ transform-box:fill-box; transform-origin:center; }
+.row:hover .ic-image .sun, .pv-panel .ic-image .sun{ animation:rise 1.2s ease-in-out infinite alternate; }
+@keyframes rise{ from{ transform:translateY(3px) scale(.8); } to{ transform:translateY(-1px) scale(1.1); } }
 
 /* ============ PLAYGROUND ============ */
 .pg-layout{ display:grid; gap:32px; }

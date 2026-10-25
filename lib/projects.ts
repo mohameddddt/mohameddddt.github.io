@@ -3,7 +3,7 @@ import { GITHUB } from './site';
 const GH = GITHUB + '/';
 
 export type Cat = 'ml' | 'opt' | 'apps' | 'live';
-export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse';
+export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image';
 
 export type Project = {
   slug: string;
@@ -235,6 +235,29 @@ export const PROJECTS: Project[] = [
       'Identifies tracks by AcoustID fingerprint using a <b>Dart port of Chromaprint</b>, then tags them from MusicBrainz — written into the files themselves and tested on real MP3, FLAC, M4A and OGG.',
       'Synced lyrics, plus a dashboard that edits, merges and bulk-fixes artists and albums.',
       'About <b>340 tests</b>; CI builds and tests every push, and a weekly canary checks downloads still work on the key sites.',
+    ],
+  },
+  {
+    slug: 'lumen', title: 'Lumen', year: '2026', area: 'Android app', color: 'r5', icon: 'image', cats: ['apps'],
+    repo: GH + 'Lumen',
+    links: [{ label: 'Download APK', href: GH + 'Lumen/releases/latest' }],
+    sub: 'A calm, fast, offline gallery for Android',
+    headline: 'A photo gallery that stays out of the way.',
+    blurb: 'An offline gallery in Kotlin and Jetpack Compose: a day-by-day timeline, albums with custom covers and hidden folders locked behind your fingerprint.',
+    platform: 'Android 11+: Kotlin & Jetpack Compose',
+    kpis: [['5.9 MB', 'release APK'], ['Offline', 'no account, no network'], ['6 × 5', 'palettes × typefaces'], ['Android 11+', 'API 30 and up']],
+    pills: ['Kotlin', 'Jetpack Compose', 'Coil', 'ExoPlayer'],
+    stack: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Coil', 'DataStore', 'ExoPlayer'],
+    overview: [
+      'An offline gallery app for Android with an editorial look: warm paper and ink with a single coral accent, Instrument Serif titles, thin line icons and a floating frosted-glass dock. The chips, switches, segmented controls and video scrubber are all custom.',
+      'It reads the phone’s own media library, so <b>photos are only referenced, never copied or moved</b>. Your albums, covers and hidden folders live alongside the files instead of replacing them.',
+    ],
+    highlights: [
+      'A photo timeline grouped by day, or by month at five columns and up, with a <b>pinch-to-resize grid</b> from two to six columns and “On this day” memories from earlier years.',
+      'Grid thumbnails come from Android’s own thumbnail cache through a custom Coil fetcher, which turns them into <b>hardware bitmaps on a background thread</b> so the render thread never uploads a tile mid-scroll. Release builds are shrunk with R8 and ship startup profiles.',
+      '<b>Hidden folders</b> unlock with fingerprint, face or screen lock, stay out of Photos, Albums, Search and Memories, block screenshots while open and lock again when you leave the app.',
+      'Recently deleted uses Android’s own trash, with restore, delete forever and the days left on each item. Search understands names, albums and dates (“october 2024”) and filters for videos, favourites, GIFs and screenshots.',
+      'A viewer with pinch and double-tap zoom, ExoPlayer video, a slideshow and a details sheet with camera EXIF; six palettes, five typefaces, optional Material You colour and a pure-black dark mode.',
     ],
   },
   {
