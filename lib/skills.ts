@@ -9,9 +9,9 @@ export const GROUPS: [string, string[]][] = [
   ['Optimization', ['Integer programming', 'PuLP', 'Branch & Bound', 'Genetic algorithms', 'Simulated annealing', 'ALNS', 'Dynamic programming']],
   ['Backend & APIs', ['FastAPI', 'Flask', 'Node.js', 'Express', 'SQLAlchemy', 'JWT', 'Gunicorn']],
   ['Web & desktop', ['React', 'Next.js', 'Tailwind CSS', 'MapLibre', 'Electron', 'Vite']],
-  ['Mobile', ['Flutter', 'BLoC', 'Provider', 'GetIt', 'SQLite', 'Hive', 'Firebase Cloud Messaging']],
+  ['Mobile', ['Jetpack Compose', 'Material 3', 'Coil', 'DataStore', 'Flutter', 'BLoC', 'Provider', 'GetIt', 'SQLite', 'Hive', 'Firebase Cloud Messaging']],
   ['Data & cloud', ['PostgreSQL', 'PostGIS', 'Supabase', 'Vercel', 'Render']],
-  ['Media', ['ffmpeg', 'WebTorrent', 'yt-dlp', 'Chromaprint']],
+  ['Media', ['ExoPlayer', 'ffmpeg', 'WebTorrent', 'yt-dlp', 'Chromaprint']],
   ['Quality & DevOps', ['Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Sentry']],
   ['Domains', ['Computer vision', 'NLP', 'Audio', 'Geospatial', 'Sports analytics', 'Security']],
 ];

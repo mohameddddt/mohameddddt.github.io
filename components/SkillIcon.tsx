@@ -4,12 +4,12 @@ import {
   siPandas, siNumpy, siScipy, siJupyter, siGooglegemini, siFastapi, siFlask, siNodedotjs, siExpress, siSqlalchemy,
   siJsonwebtokens, siGunicorn, siReact, siNextdotjs, siTailwindcss, siMaplibre, siElectron, siVite, siFlutter, siSqlite,
   siFirebase, siPostgresql, siSupabase, siVercel, siRender, siFfmpeg, siDocker, siGithubactions, siPytest, siSentry,
-  siC, siCplusplus, siGnubash, siLinux, siGit,
+  siC, siCplusplus, siGnubash, siLinux, siGit, siJetpackcompose, siMaterialdesign,
 } from 'simple-icons';
 import {
   Trees, ChartLine, MapPinned, Magnet, Download, Drama, Boxes, Archive, Waypoints, Share2, Plug, AudioWaveform, Stethoscope,
   ScanEye, Layers, AudioLines, FileSearch, Orbit, Database, Sigma, Calculator, GitBranch, Dna, Thermometer, Shuffle, Grid3x3,
-  Fingerprint, Eye, MessageSquareText, Music, Globe, Trophy, ShieldCheck, Code, type LucideIcon,
+  Fingerprint, Eye, MessageSquareText, Music, Globe, Trophy, ShieldCheck, Images, Clapperboard, SlidersHorizontal, Code, type LucideIcon,
 } from 'lucide-react';
 
 type Brand = { path: string; hex: string };
@@ -23,7 +23,7 @@ const BRAND: Record<string, Brand> = {
   React: siReact, 'Next.js': siNextdotjs, 'Tailwind CSS': siTailwindcss, MapLibre: siMaplibre, Electron: siElectron, Vite: siVite,
   Flutter: siFlutter, SQLite: siSqlite, 'Firebase Cloud Messaging': siFirebase, PostgreSQL: siPostgresql, Supabase: siSupabase,
   Vercel: siVercel, Render: siRender, ffmpeg: siFfmpeg, Docker: siDocker, 'GitHub Actions': siGithubactions, pytest: siPytest,
-  Sentry: siSentry, C: siC, 'C++': siCplusplus, Bash: siGnubash, Linux: siLinux, Git: siGit,
+  Sentry: siSentry, 'Jetpack Compose': siJetpackcompose, 'Material 3': siMaterialdesign, C: siC, 'C++': siCplusplus, Bash: siGnubash, Linux: siLinux, Git: siGit,
 };
 
 // no official mark (or a concept, not a product): a plain glyph that says what it is
@@ -34,7 +34,7 @@ const GENERIC: Record<string, LucideIcon> = {
   Embeddings: Orbit, SQL: Database, 'Integer programming': Sigma, PuLP: Calculator, 'Branch & Bound': GitBranch,
   'Genetic algorithms': Dna, 'Simulated annealing': Thermometer, ALNS: Shuffle, 'Dynamic programming': Grid3x3,
   Chromaprint: Fingerprint, 'Computer vision': Eye, NLP: MessageSquareText, Audio: Music, Geospatial: Globe,
-  'Sports analytics': Trophy, Security: ShieldCheck,
+  'Sports analytics': Trophy, Security: ShieldCheck, Coil: Images, ExoPlayer: Clapperboard, DataStore: SlidersHorizontal,
 };
 
 const lum = (hex: string) => {
