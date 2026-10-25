@@ -83,7 +83,8 @@
 
 /* ============ BASE ============ */
 *,*::before,*::after{ box-sizing:border-box; }
-html{ -webkit-text-size-adjust:100%; }
+html{ -webkit-text-size-adjust:100%; scrollbar-width:none; }
+html::-webkit-scrollbar{ display:none; }
 body{
   margin:0; background:var(--bg); color:var(--ink-2);
   font:16px/1.6 var(--f-sans); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
