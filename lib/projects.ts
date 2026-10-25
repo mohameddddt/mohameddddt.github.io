@@ -273,6 +273,21 @@ export const PROJECTS: Project[] = [
     kpis: [['3', 'desktop platforms'], ['3', 'playback paths']],
     pills: ['Electron', 'React', 'TypeScript', 'ffmpeg'],
     stack: ['TypeScript', 'Electron', 'React', 'Vite', 'WebTorrent', 'ffmpeg'],
+    shotSize: [1200, 625],
+    shots: [
+      { src: '/assets/projects/streamline/home.webp', caption: 'Home: a rotating spotlight above the titles you were watching.' },
+      { src: '/assets/projects/streamline/detail.webp', caption: 'Title pages: artwork, your rating, and the next episode to play.' },
+      { src: '/assets/projects/streamline/episodes.webp', caption: 'Episodes: progress per episode, watched ticks and what’s up next.' },
+      { src: '/assets/projects/streamline/sources.webp', caption: 'Smart sources: filter by quality, sort by seeds or size, or hit Play best.' },
+      { src: '/assets/projects/streamline/player.webp', caption: 'The player: speed, subtitles, picture-in-picture and live peer stats.' },
+      { src: '/assets/projects/streamline/insights.webp', caption: 'Insights: hours watched, titles finished and how you rate.' },
+      { src: '/assets/projects/streamline/companion.webp', caption: 'Web companion: lets the browser version play torrents through the desktop app.' },
+    ],
+    phones: [
+      { src: '/assets/projects/streamline/phone-home.webp', caption: 'On a phone, the dock becomes a tab bar.' },
+      { src: '/assets/projects/streamline/phone-detail.webp', caption: 'A title page on a phone.' },
+      { src: '/assets/projects/streamline/phone-sources.webp', caption: 'Sources on a phone.' },
+    ],
     overview: [
       'A desktop movie and TV streamer that speaks the Stremio addon protocol, so it works with Torrentio, Cinemeta, OpenSubtitles and any addon that publishes a manifest. Everything it uses is free: no account, no API key.',
     ],
