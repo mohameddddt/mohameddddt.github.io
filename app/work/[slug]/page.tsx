@@ -25,15 +25,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: `${p.title}: ${p.sub}`,
     description: p.blurb,
     alternates: { canonical: projectHref(p) },
-    openGraph: { title: p.title, description: p.blurb, url: projectHref(p), ...(p.shots ? { images: [{ url: p.shots[0].src, width: 1200, height: 750 }] } : {}) },
+    openGraph: { title: p.title, description: p.blurb, url: projectHref(p), ...(p.shots ? { images: [{ url: p.shots[0].src, width: p.shotSize?.[0] ?? 1200, height: p.shotSize?.[1] ?? 750 }] } : {}) },
   };
 }
 
-const Browser = ({ src, label, alt, lazy = true }: { src: string; label: string; alt: string; lazy?: boolean }) => (
+const Browser = ({ src, label, alt, lazy = true, size = [1200, 750] }: { src: string; label: string; alt: string; lazy?: boolean; size?: [number, number] }) => (
   <div className="frame">
     <div className="shot-bar"><span className="dots"><i /><i /><i /></span><span className="shot-url"><LockSolid />{label}</span></div>
     {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={src} alt={alt} width={1200} height={750} loading={lazy ? 'lazy' : 'eager'} decoding="async" />
+    <img src={src} alt={alt} width={size[0]} height={size[1]} style={{ aspectRatio: `${size[0]} / ${size[1]}` }} loading={lazy ? 'lazy' : 'eager'} decoding="async" />
   </div>
 );
 
@@ -47,6 +47,14 @@ const Phone = ({ src, alt, lazy = true }: { src: string; alt: string; lazy?: boo
 function CoverVisual({ p }: { p: Project }) {
   if (p.slug === 'drone-delivery') return <div className="cover-app"><Playground seed={11} label="drone-routing" /></div>;
   if (p.audio) return <div className="cover-app"><AudioSamples clips={p.audio} /></div>;
+  if (p.shots) {
+    return (
+      <div className="shot-stack">
+        <div className="parallax"><Browser src={p.shots[0].src} label={p.siteLabel || ''} alt={`${p.title}: ${p.shots[0].caption}`} lazy={false} size={p.shotSize} /></div>
+        {p.shots[2] && <div className="shot-back"><Browser src={p.shots[2].src} label={p.siteLabel || ''} alt="" lazy={false} size={p.shotSize} /></div>}
+      </div>
+    );
+  }
   if (p.phones) {
     // the first screen up front, the next two fanned out behind it
     const [front, left, right] = p.phones;
@@ -55,14 +63,6 @@ function CoverVisual({ p }: { p: Project }) {
         {left && <div className="ph-side l"><Phone src={left.src} alt="" lazy={false} /></div>}
         <div className="ph-front parallax"><Phone src={front.src} alt={`${p.title}: ${front.caption}`} lazy={false} /></div>
         {right && <div className="ph-side r"><Phone src={right.src} alt="" lazy={false} /></div>}
-      </div>
-    );
-  }
-  if (p.shots) {
-    return (
-      <div className="shot-stack">
-        <div className="parallax"><Browser src={p.shots[0].src} label={p.siteLabel || ''} alt={`${p.title}: ${p.shots[0].caption}`} lazy={false} /></div>
-        {p.shots[2] && <div className="shot-back"><Browser src={p.shots[2].src} label={p.siteLabel || ''} alt="" lazy={false} /></div>}
       </div>
     );
   }
@@ -150,7 +150,7 @@ export default async function ProjectPage({ params }: Params) {
           <section className="pp-gallery" aria-label="Screenshots">
             {p.shots.map((s, i) => (
               <figure key={s.src} className={'reveal scale' + (i === 0 ? ' wide' : '')} style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
-                <div className="gallery-panel" data-parallax="-40"><Browser src={s.src} label={p.siteLabel || ''} alt={`${p.title}: ${s.caption}`} /></div>
+                <div className="gallery-panel" data-parallax="-40"><Browser src={s.src} label={p.siteLabel || ''} alt={`${p.title}: ${s.caption}`} size={p.shotSize} /></div>
                 <figcaption>{s.caption}</figcaption>
               </figure>
             ))}

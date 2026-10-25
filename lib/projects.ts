@@ -31,6 +31,8 @@ export type Project = {
   pills: string[];
   stack: string[];
   shots?: { src: string; caption: string }[];
+  /** pixel size of the shots when they aren't 1200×750 */
+  shotSize?: [number, number];
   /** portrait phone screenshots (720×1600), shown in a phone frame instead of a browser window */
   phones?: { src: string; caption: string }[];
   audio?: { src: string; emotion: string; sentence: string; speaker: string }[];
