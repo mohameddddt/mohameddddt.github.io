@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: [{ url: '/assets/og.png', width: 1200, height: 630, alt: 'Mohamed Sahnoune Toubal, AI Engineer at ENSIA: 74.2% emotion accuracy on unseen speakers, +481 FPL points over the baseline, 74 published routing optima reproduced.' }],
   },
   twitter: { card: 'summary_large_image' },
-  icons: { apple: '/assets/apple-touch-icon.png' },
+  icons: { icon: { url: '/icon.svg', type: 'image/svg+xml' }, apple: '/assets/apple-touch-icon.png' },
 };
 
 export const viewport: Viewport = { themeColor: BG.dark };
