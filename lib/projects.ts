@@ -263,9 +263,10 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: 'streamline', title: 'Streamline', year: '2026', area: 'Desktop app', color: 'r2', icon: 'play', cats: ['apps'],
-    repo: GH + 'Streamline',
-    sub: 'Movie & TV streamer for Windows, macOS and Linux',
+    slug: 'streamline', title: 'Streamline', year: '2026', area: 'Desktop & web app', color: 'r2', icon: 'play', cats: ['apps', 'live'],
+    site: 'https://mohameddddt.github.io/Streamline/', siteLabel: 'mohameddddt.github.io/Streamline', repo: GH + 'Streamline',
+    links: [{ label: 'Download for Windows', href: GH + 'Streamline/releases/latest' }],
+    sub: 'Movie & TV streamer for the desktop and the web',
     headline: 'Play the film before the download finishes.',
     blurb: 'Starts playback long before the torrent finishes, and transcodes only when the browser engine can’t play the file.',
     platform: 'Desktop: Windows, macOS and Linux',
