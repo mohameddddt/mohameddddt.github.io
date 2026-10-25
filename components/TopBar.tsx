@@ -9,7 +9,7 @@ import { gsap, reduced } from '@/lib/motion';
 import ThemeToggle from './ThemeToggle';
 import Clock from './Clock';
 import { KbdMod } from './Effects';
-import { SearchIcon } from './Marks';
+import { GitHubMark, SearchIcon } from './Marks';
 
 export default function TopBar() {
   const path = usePathname();
@@ -90,6 +90,7 @@ export default function TopBar() {
             <button className="cmdk-btn" type="button" onClick={openCommandMenu} aria-label="Open command menu">
               <SearchIcon /><span className="l-wide">Search</span><KbdMod />
             </button>
+            <a className="icon-btn" href={GITHUB} target="_blank" rel="noopener" aria-label="GitHub profile"><GitHubMark /></a>
             <ThemeToggle />
             <button className={'menu-btn' + (open ? ' open' : '')} type="button" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(o => !o)}>
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span><i /><i />
