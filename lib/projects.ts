@@ -340,6 +340,12 @@ export const PROJECTS: Project[] = [
     kpis: [['Flutter', '+ Node.js'], ['JWT', 'auth with bcrypt hashes']],
     pills: ['Flutter', 'BLoC', 'Express', 'Supabase'],
     stack: ['Dart', 'JavaScript', 'Flutter', 'BLoC', 'Node.js', 'Express', 'JWT', 'Supabase'],
+    phones: [
+      { src: '/assets/projects/qnow/queue.webp', caption: 'Running a queue: capacity, who is waiting, and one tap to notify or serve each customer.' },
+      { src: '/assets/projects/qnow/my-queues.webp', caption: 'My Queues: the queues a customer has joined, and a button to join another.' },
+      { src: '/assets/projects/qnow/notification.webp', caption: 'Push notifications reach the customer’s phone.' },
+      { src: '/assets/projects/qnow/login.webp', caption: 'One login for customers and business owners.' },
+    ],
     overview: ['Lets businesses run a virtual queue and customers wait for their turn without standing in line.'],
     highlights: ['A Flutter client built on BLoC.', 'An Express API with JWT authentication and bcrypt-hashed passwords.', 'Supabase for storage.'],
   },
