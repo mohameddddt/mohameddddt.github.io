@@ -106,8 +106,8 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: 'drone-delivery', title: 'Drone-Based Delivery', year: '2026', area: 'Optimization', color: 'r2', icon: 'route', cats: ['opt'],
-    repo: GH + 'Drone-Based-Delivery-Optimization-Problem',
+    slug: 'drone-delivery', title: 'Drone-Based Delivery', year: '2026', area: 'Optimization', color: 'r2', icon: 'route', cats: ['opt', 'live'],
+    site: 'https://mohameddddt.github.io/Drone-Based-Delivery-Optimization-Problem/', siteLabel: 'mohameddddt.github.io/Drone-Based-Delivery-Optimization-Problem', repo: GH + 'Drone-Based-Delivery-Optimization-Problem',
     links: [{ label: 'Slides', href: 'https://canva.link/15vny3fv09kl44h' }],
     sub: 'Energy-aware routing where cost depends on the load still on board',
     headline: 'Routing drones when weight changes the energy.',
