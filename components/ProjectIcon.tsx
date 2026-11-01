@@ -14,6 +14,7 @@ const ICONS: Record<IconName, string> = {
   queue: '<svg class="ic-queue" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="13" r="2.6"/><circle cx="12" cy="13" r="2.6"/><circle cx="19" cy="13" r="2.6"/></svg>',
   pulse: '<svg class="ic-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="ecg" pathLength="1" d="M2 12h4.5l2-5 3.5 11 2.5-8 1.5 2H22"/></svg>',
   image: '<svg class="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle class="sun" cx="15.5" cy="9" r="1.9" fill="currentColor" stroke="none"/><path d="m3.5 18 5.5-6 4 4.5 2-2 5 4.5"/></svg>',
+  pad: '<svg class="ic-pad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 6.5h9a5 5 0 0 1 4.9 4l.9 4.8a2.6 2.6 0 0 1-4.6 2.1l-1.9-2.4H7.3l-1.9 2.4a2.6 2.6 0 0 1-4.6-2.1l.9-4.8a5 5 0 0 1 4.9-4z"/><path d="M7.5 9.3v3.4M5.8 11h3.4"/><circle cx="15.5" cy="12.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="17.6" cy="10.2" r="1.05" fill="currentColor" stroke="none"/></svg>',
 };
 
 export default function ProjectIcon({ name, className = 'ic-tile' }: { name: IconName; className?: string }) {

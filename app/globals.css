@@ -578,6 +578,10 @@ html.locked .topbar{ transform:none; }
 .ic-image .sun{ transform-box:fill-box; transform-origin:center; }
 .row:hover .ic-image .sun, .pv-panel .ic-image .sun{ animation:rise 1.2s ease-in-out infinite alternate; }
 @keyframes rise{ from{ transform:translateY(3px) scale(.8); } to{ transform:translateY(-1px) scale(1.1); } }
+.ic-pad circle{ transform-box:fill-box; transform-origin:center; }
+.row:hover .ic-pad circle, .pv-panel .ic-pad circle{ animation:press .9s var(--spring) infinite; }
+.ic-pad circle:nth-of-type(2){ animation-delay:.45s !important; }
+@keyframes press{ 0%,50%,100%{ transform:none; } 25%{ transform:scale(.45); } }
 
 /* ============ PLAYGROUND ============ */
 .pg-layout{ display:grid; gap:32px; }

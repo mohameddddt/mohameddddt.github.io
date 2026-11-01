@@ -3,7 +3,7 @@ import { GITHUB } from './site';
 const GH = GITHUB + '/';
 
 export type Cat = 'ml' | 'opt' | 'apps' | 'live';
-export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image';
+export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad';
 
 export type Project = {
   slug: string;
@@ -269,6 +269,37 @@ export const PROJECTS: Project[] = [
       '<b>Hidden folders</b> unlock with fingerprint, face or screen lock, stay out of Photos, Albums, Search and Memories, block screenshots while open and lock again when you leave the app.',
       'Recently deleted uses Android’s own trash, with restore, delete forever and the days left on each item. Search understands names, albums and dates (“october 2024”) and filters for videos, favourites, GIFs and screenshots.',
       'A viewer with pinch and double-tap zoom, ExoPlayer video, a slideshow and a details sheet with camera EXIF; six palettes, five typefaces, optional Material You colour and a pure-black dark mode.',
+    ],
+  },
+  {
+    slug: 'savepoint', title: 'Savepoint', year: '2026', area: 'Android app', color: 'r4', icon: 'pad', cats: ['apps'],
+    repo: GH + 'savepoint',
+    sub: 'A private video game diary for Android',
+    headline: 'A game diary that never leaves your phone.',
+    blurb: 'Log sessions, ratings and reviews, chase a yearly goal and let it pick from your backlog. Covers come from IGDB, playtime from Xbox, and the data stays on the phone.',
+    platform: 'Android: Flutter, with SQLite on the device',
+    kpis: [['8', 'statuses, half-star ratings'], ['26', 'genre and mood pages'], ['3–4', 'API calls per Xbox sync'], ['0', 'accounts or servers']],
+    pills: ['Flutter', 'SQLite', 'IGDB', 'OpenXBL'],
+    stack: ['Dart', 'Flutter', 'SQLite'],
+    phones: [
+      { src: '/assets/projects/savepoint/home.webp', caption: 'Home: what you’re playing, the yearly challenge and what’s up next.' },
+      { src: '/assets/projects/savepoint/game.webp', caption: 'Game pages: status, rating, a session timer and your playtime against a typical run.' },
+      { src: '/assets/projects/savepoint/library.webp', caption: 'Library: eight statuses, filters, eight sort orders, grid or list.' },
+      { src: '/assets/projects/savepoint/stats.webp', caption: 'Stats: a year in review, with games finished by month.' },
+      { src: '/assets/projects/savepoint/diary.webp', caption: 'Diary: sessions and milestones, grouped by month.' },
+      { src: '/assets/projects/savepoint/pick.webp', caption: 'Pick for me: a slot-machine spin over the backlog, filtered by how much time you have.' },
+    ],
+    overview: [
+      'A single-player video game diary for Android that takes the best parts of Letterboxd, Serializd, Trakt and Backloggd and keeps everything on your phone. Covers, search and discovery come from IGDB, the database Backloggd uses.',
+      'Everything is stored in SQLite on the device and loaded into memory at launch, so <b>every screen opens instantly</b>. The screenshots use the app’s built-in demo data.',
+    ],
+    highlights: [
+      'A library with eight statuses (Playing, Completed, 100%, Played, Shelved, Abandoned, Backlog, Wishlist), half-star ratings, likes, tags, priority and private notes, plus reviews with a spoiler veil.',
+      'A diary that logs milestones by itself. A <b>play-session timer</b> stays above the navigation and survives the app being closed; stopping it logs the minutes, a note, the platform and an optional new status.',
+      '<b>Xbox import</b> through OpenXBL: every game you’ve played is matched to IGDB in batches and reviewed before anything is added. A re-sync adds only the playtime since the last one, so it never double-counts.',
+      'Stats per year or all-time: finished games and hours by month, an activity heatmap, streaks, weekday patterns, top genres, rating spread and a backlog forecast.',
+      'Discover with trending, anticipated and hidden-gem rails cached for an instant open, 26 genre and mood pages with infinite scroll, a release radar, ranked lists and a top-five shelf.',
+      'API keys stay on the device and are left out of backups; JSON backup and restore, plus CSV export.',
     ],
   },
   {
