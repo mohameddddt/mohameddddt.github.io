@@ -3,7 +3,7 @@ import { GITHUB } from './site';
 const GH = GITHUB + '/';
 
 export type Cat = 'ml' | 'opt' | 'apps' | 'live';
-export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad';
+export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad' | 'dl';
 
 export type Project = {
   slug: string;
@@ -17,6 +17,7 @@ export type Project = {
   cats: Cat[];
   /** a live URL turns on the "Live website" highlight everywhere: card, page, filter, search */
   site?: string;
+  /** the address shown in the screenshots' browser bar (and the live site's label when there is one) */
   siteLabel?: string;
   repo?: string;
   private?: boolean;
@@ -339,6 +340,36 @@ export const PROJECTS: Project[] = [
       'Browsers can’t talk to torrent peers, so the web version hands torrents to the desktop engine through a <b>token-protected companion</b> that listens on 127.0.0.1 only and stays off until you switch it on.',
       '<b>Play best</b> reads resolution, HDR, codec, audio, size and seeds from each source’s text and picks a healthy release the player can decode without converting. Series offer the next episode on the same release.',
       'Imports watch history and ratings from Letterboxd, IMDb, Serializd, Trakt and Simkl, scrobbles live to Trakt and Simkl, and updates itself through electron-updater.',
+    ],
+  },
+  {
+    slug: 'mytube', title: 'My Tube', year: '2026', area: 'Desktop app', color: 'r3', icon: 'dl', cats: ['apps'],
+    siteLabel: 'localhost:8080', repo: GH + 'mytube-invidious',
+    links: [{ label: 'Download for Windows', href: GH + 'mytube-invidious/releases/latest' }],
+    sub: 'A self-hosted YouTube interface for Windows',
+    headline: 'YouTube on my own PC, gone when I close it.',
+    blurb: 'Invidious in Docker inside WSL2 with a hand-written web app on top: search, watch, subscribe without an account and download to the PC. Closing the window shuts it all down.',
+    platform: 'Windows desktop app: Python launcher, Invidious in WSL2',
+    kpis: [['0 MB', 'RAM while stopped'], ['~7 MB', 'single-file desktop app'], ['Stdlib', 'only, for the backend'], ['127.0.0.1', 'every service']],
+    pills: ['Python', 'Invidious', 'Docker', 'yt-dlp'],
+    stack: ['Python', 'JavaScript', 'Invidious', 'Docker', 'PostgreSQL', 'yt-dlp', 'ffmpeg', 'PyInstaller'],
+    shots: [
+      { src: '/assets/projects/mytube/feed.webp', caption: 'Feed: the latest from your channels, built on demand without a Google account.' },
+      { src: '/assets/projects/mytube/watch.webp', caption: 'Watch: a custom player, with Like, Watch later and Download beside the title.' },
+      { src: '/assets/projects/mytube/search.webp', caption: 'Search, with filters for type, sort, date and length.' },
+      { src: '/assets/projects/mytube/channels.webp', caption: 'Channels: subscriptions kept on the PC.' },
+    ],
+    overview: [
+      'A personal YouTube interface for Windows. It runs Invidious and its companion service in Docker inside WSL2, with a small hand-written web app on top: no frameworks, no build step, no web fonts.',
+      'Subscriptions, history and watch later live in one file behind the local server, so the app window and any browser tab always show the same data.',
+    ],
+    highlights: [
+      'One click starts the containers, the local server and an Edge app window. Closing the window stops everything and hands WSL’s memory back, so it uses <b>0 MB of RAM while stopped</b>.',
+      'A custom player with quality and speed menus, picture-in-picture and YouTube’s keyboard shortcuts. It falls back from your downloaded file to DASH, to a 360p stream, to the embedded player.',
+      'A small, local and explainable recommender: the feed mixes in videos related to the ones you liked, finished or saved, favours channels you watch often, and says which video each suggestion came from.',
+      'Downloads through <b>yt-dlp</b> and ffmpeg, from 480p to 1080p video or MP3, including whole playlists with per-video progress and cancel; videos you already have are skipped.',
+      'The backend is one Python file using only the standard library. Every service listens on 127.0.0.1, download profiles are fixed, video ids are validated and requests with a foreign Host or Origin are refused.',
+      'Built into one exe with PyInstaller and shipped as a signed Inno Setup installer that needs no administrator rights.',
     ],
   },
   {

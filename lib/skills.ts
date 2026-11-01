@@ -11,8 +11,8 @@ export const GROUPS: [string, string[]][] = [
   ['Web & desktop', ['React', 'Next.js', 'Tailwind CSS', 'MapLibre', 'Electron', 'Vite']],
   ['Mobile', ['Jetpack Compose', 'Material 3', 'Coil', 'DataStore', 'Flutter', 'BLoC', 'Provider', 'GetIt', 'SQLite', 'Hive', 'Firebase Cloud Messaging']],
   ['Data & cloud', ['PostgreSQL', 'PostGIS', 'Supabase', 'Vercel', 'Render']],
-  ['Media', ['ExoPlayer', 'ffmpeg', 'WebTorrent', 'yt-dlp', 'Chromaprint']],
-  ['Quality & DevOps', ['Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Sentry']],
+  ['Media', ['ExoPlayer', 'ffmpeg', 'WebTorrent', 'yt-dlp', 'Invidious', 'Chromaprint']],
+  ['Quality & DevOps', ['Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Sentry', 'PyInstaller']],
   ['Domains', ['Computer vision', 'NLP', 'Audio', 'Geospatial', 'Sports analytics', 'Security']],
 ];
 

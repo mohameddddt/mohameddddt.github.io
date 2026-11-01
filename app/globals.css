@@ -582,6 +582,9 @@ html.locked .topbar{ transform:none; }
 .row:hover .ic-pad circle, .pv-panel .ic-pad circle{ animation:press .9s var(--spring) infinite; }
 .ic-pad circle:nth-of-type(2){ animation-delay:.45s !important; }
 @keyframes press{ 0%,50%,100%{ transform:none; } 25%{ transform:scale(.45); } }
+.ic-dl .arr{ transform-box:fill-box; }
+.row:hover .ic-dl .arr, .pv-panel .ic-dl .arr{ animation:drop 1s var(--ease) infinite; }
+@keyframes drop{ 0%{ transform:translateY(-4px); opacity:0; } 35%{ opacity:1; } 70%,100%{ transform:translateY(1.5px); opacity:1; } }
 
 /* ============ PLAYGROUND ============ */
 .pg-layout{ display:grid; gap:32px; }
