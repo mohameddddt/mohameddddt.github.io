@@ -221,6 +221,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'cadence', title: 'Cadence', year: '2026', area: 'Android app', color: 'r1', icon: 'note', cats: ['apps'],
     repo: GH + 'Cadence',
+    links: [{ label: 'Download APK', href: GH + 'Cadence/releases/latest' }],
     sub: 'Your music, in rhythm · open-source Android player',
     headline: 'A music library that tags and tidies itself.',
     blurb: 'A music player and library manager that downloads, fingerprints and tags your files, then keeps the library tidy.',
@@ -228,8 +229,16 @@ export const PROJECTS: Project[] = [
     kpis: [['~340', 'tests'], ['Weekly', 'CI canary'], ['1,000+', 'download sources']],
     pills: ['Flutter', 'Kotlin', 'SQLite', 'FastAPI'],
     stack: ['Dart', 'Kotlin', 'Java', 'Python', 'Flutter', 'Provider', 'SQLite', 'FastAPI', 'Docker', 'GitHub Actions', 'ffmpeg', 'yt-dlp', 'Chromaprint', 'Audio'],
+    phones: [
+      { src: '/assets/projects/cadence/home.webp', caption: 'Home: shortcuts, recently added, and a nudge to fix songs with incomplete tags.' },
+      { src: '/assets/projects/cadence/now-playing.webp', caption: 'Now playing: lyrics, sleep timer, equalizer, speed and the queue one tap away.' },
+      { src: '/assets/projects/cadence/album.webp', caption: 'Album pages with the year, running time and every track.' },
+      { src: '/assets/projects/cadence/albums.webp', caption: 'Your Library: playlists, songs, albums, artists and genres, read from the files’ own tags.' },
+      { src: '/assets/projects/cadence/search.webp', caption: 'Search: radio, podcasts, “Surprise me” and the genres in your library.' },
+      { src: '/assets/projects/cadence/dashboard.webp', caption: 'Dashboard: library health, tag coverage and what needs attention.' },
+    ],
     overview: [
-      'An open-source Android music player and library manager for people who keep their own files, built with Flutter and native Kotlin/Java plugins.',
+      'An open-source Android music player and library manager for people who keep their own files, built with Flutter and native Kotlin/Java plugins. The screenshots show a demo library.',
     ],
     highlights: [
       'Gapless playback with ReplayGain, an equalizer, a sleep timer, and Android Auto / Bluetooth controls.',
