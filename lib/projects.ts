@@ -3,7 +3,7 @@ import { GITHUB } from './site';
 const GH = GITHUB + '/';
 
 export type Cat = 'ml' | 'opt' | 'apps' | 'live';
-export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad' | 'dl';
+export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad' | 'earth' | 'dl';
 
 export type Project = {
   slug: string;
@@ -104,6 +104,37 @@ export const PROJECTS: Project[] = [
       'For scale: chance is 16.7%, and the CREMA-D authors report human raters identify the intended emotion from audio alone about 41% of the time.',
       'Per-class recall: angry 89%, neutral 88%, fear 75%, happy 69%, sad 66%, disgust 60%.',
       'A Colab notebook caches embeddings to Google Drive and resumes after a disconnect; the saved model is about 56 KB because it stores only the encoder name, the layers and the classifier.',
+    ],
+  },
+  {
+    slug: 'eo-bench', title: 'EO-Bench Hub', year: '2026', area: 'ML · Web app', color: 'r1', icon: 'earth', cats: ['ml', 'apps', 'live'],
+    site: 'https://mohameddddt.github.io/eo-benchmark-hub/', siteLabel: 'mohameddddt.github.io/eo-benchmark-hub', repo: GH + 'eo-benchmark-hub',
+    sub: 'Benchmarks for Earth-observation models, with error bars',
+    headline: 'Benchmarks that tell you more than one number.',
+    blurb: 'Upload predictions, get scored on hidden test splits with confidence intervals, robustness under sensor and atmospheric corruptions, calibration and the accuracy-efficiency trade-off.',
+    platform: 'Web app: FastAPI + React, read-only snapshot on GitHub Pages',
+    kpis: [['5', 'benchmarks, 4 task types'], ['13', 'reference models'], ['37', 'evaluations on hidden splits'], ['95%', 'bootstrap CI on every score']],
+    pills: ['PyTorch', 'FastAPI', 'React', 'Kaggle'],
+    stack: ['Python', 'TypeScript', 'PyTorch', 'scikit-learn', 'NumPy', 'Jupyter', 'FastAPI', 'SQLAlchemy', 'JWT', 'Celery', 'React', 'Vite', 'TanStack Query', 'SQLite', 'PostgreSQL', 'Redis', 'Kaggle', 'Docker', 'GitHub Actions', 'pytest', 'Computer vision', 'Geospatial'],
+    shots: [
+      { src: '/assets/projects/eo-bench/home.webp', caption: 'Home: five benchmarks, every score produced by the hub’s own evaluators.' },
+      { src: '/assets/projects/eo-bench/leaderboard.webp', caption: 'EuroSAT leaderboard: 95% intervals, shaded tiers of statistically tied models, calibration and cost.' },
+      { src: '/assets/projects/eo-bench/robustness.webp', caption: 'EuroSAT-C: clean accuracy against corruption accuracy, severity curves and a per-corruption heatmap.' },
+      { src: '/assets/projects/eo-bench/segmentation.webp', caption: 'LandCover.ai: drag the handle to compare a model’s mask with the ground truth.' },
+      { src: '/assets/projects/eo-bench/models.webp', caption: 'Models across benchmarks: each backbone’s score and rank on every track.' },
+      { src: '/assets/projects/eo-bench/model-card.webp', caption: 'A model page: per-class AP, training curves and the model card.' },
+    ],
+    overview: [
+      'Researchers upload predictions for Earth-observation tasks and are scored on hidden test splits by versioned evaluators that are identical for every model. Every primary score has a <b>95% bootstrap confidence interval</b>, and entries whose intervals overlap the leader’s share a tier.',
+      'Five benchmarks across four task types: EuroSAT, a new robustness track EuroSAT-C, NWPU-RESISC45, BigEarthNet-S2 and LandCover.ai. Each has a model zoo trained on Kaggle T4 GPUs and scored through the same upload path as anyone’s file, so no number on the site is entered by hand.',
+    ],
+    highlights: [
+      'An audit of v1 found the “hidden” EuroSAT ids were filenames like AnnualCrop_1, so reading the label off the id scored <b>100%</b>. v2 ids are content hashes, and byte-identical duplicates are removed so no image sits in both train and test.',
+      '<b>Clean accuracy hides robustness.</b> Eight EuroSAT models are statistically tied within about half a point, but under EuroSAT-C’s 7 corruptions × 3 severities they spread over 25 points: ViT-S/16 keeps 70% of its accuracy, ResNet-50 keeps 45%.',
+      'Calibration (ECE, NLL and Brier with reliability diagrams) whenever probabilities are uploaded, plus parameters, GFLOPs and measured throughput on a Pareto frontier. Label smoothing shows up as an ECE of about 9% on every smoothed classifier.',
+      'Sentinel-2 self-supervised weights (SSL4EO-S12) tie ImageNet on EuroSAT, lose 2.7 points on aerial RESISC45 and trail by 2 mAP on BigEarthNet. Their input normalisation is picked by a frozen-feature kNN probe on train/val, never on test.',
+      'A segmentation evaluator streams ZIPs of PNG masks and bootstraps mIoU over tiles; SegFormer leads LandCover.ai at <b>85.79 mIoU</b>, and roads and buildings are what separate the models.',
+      'FastAPI with SQLite and in-process evaluation by default, or Postgres, Redis and Celery workers under Docker Compose. The typed React front end draws its charts in hand-built SVG and also exports as a read-only static site.',
     ],
   },
   {

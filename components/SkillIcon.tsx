@@ -4,7 +4,7 @@ import {
   siPandas, siNumpy, siScipy, siJupyter, siGooglegemini, siFastapi, siFlask, siNodedotjs, siExpress, siSqlalchemy,
   siJsonwebtokens, siGunicorn, siReact, siNextdotjs, siTailwindcss, siMaplibre, siElectron, siVite, siFlutter, siSqlite,
   siFirebase, siPostgresql, siSupabase, siVercel, siRender, siFfmpeg, siDocker, siGithubactions, siPytest, siSentry,
-  siC, siCplusplus, siGnubash, siLinux, siGit, siJetpackcompose, siMaterialdesign, siInvidious,
+  siC, siCplusplus, siGnubash, siLinux, siGit, siJetpackcompose, siMaterialdesign, siCelery, siRedis, siKaggle, siReactquery, siInvidious,
 } from 'simple-icons';
 import {
   Trees, ChartLine, MapPinned, Magnet, Download, Drama, Boxes, Archive, Waypoints, Share2, Plug, AudioWaveform, Stethoscope,
@@ -24,7 +24,7 @@ const BRAND: Record<string, Brand> = {
   Flutter: siFlutter, SQLite: siSqlite, 'Firebase Cloud Messaging': siFirebase, PostgreSQL: siPostgresql, Supabase: siSupabase,
   Vercel: siVercel, Render: siRender, ffmpeg: siFfmpeg, Docker: siDocker, 'GitHub Actions': siGithubactions, pytest: siPytest,
   Sentry: siSentry, 'Jetpack Compose': siJetpackcompose, 'Material 3': siMaterialdesign, C: siC, 'C++': siCplusplus, Bash: siGnubash, Linux: siLinux, Git: siGit,
-  Invidious: siInvidious,
+  Celery: siCelery, Redis: siRedis, Kaggle: siKaggle, 'TanStack Query': siReactquery, Invidious: siInvidious,
 };
 
 // no official mark (or a concept, not a product): a plain glyph that says what it is
