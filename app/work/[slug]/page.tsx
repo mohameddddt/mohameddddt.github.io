@@ -75,7 +75,7 @@ function Links({ p }: { p: Project }) {
       {p.site && <a className="btn live" href={p.site} target="_blank" rel="noopener"><GlobeIcon />Visit the live site<ArrowOut className="arr" /></a>}
       {p.repo && <a className="btn" href={p.repo} target="_blank" rel="noopener"><GitHubMark size={16} />Source code<ArrowOut className="arr" /></a>}
       {p.links?.map(l => <a key={l.href} className="btn" href={l.href} target="_blank" rel="noopener">{l.label}<ArrowOut className="arr" /></a>)}
-      {p.private && <span className="pp-private"><Lock />Private repository · write-up coming soon</span>}
+      {p.private && <span className="pp-private"><Lock />Private repository{p.shots || p.phones ? '' : ' · write-up coming soon'}</span>}
     </>
   );
 }

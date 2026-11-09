@@ -3,16 +3,16 @@ import { PROJECTS, type Project } from './projects';
 // Every skill a project lists belongs to exactly one group. The skills section, the project pages
 // and the search all read this, so a skill is only ever named one way.
 export const GROUPS: [string, string[]][] = [
-  ['Languages', ['Python', 'TypeScript', 'JavaScript', 'Dart', 'Kotlin', 'Java', 'SQL']],
+  ['Languages', ['Python', 'TypeScript', 'JavaScript', 'Rust', 'Dart', 'Kotlin', 'Java', 'SQL']],
   ['Machine learning', ['PyTorch', 'scikit-learn', 'LightGBM', 'XGBoost', 'Hugging Face Transformers', 'WavLM', 'MedCPT', 'MobileNetV3', 'TensorFlow Lite', 'Ensemble learning', 'librosa', 'pandas', 'NumPy', 'SciPy', 'Matplotlib', 'Jupyter']],
   ['LLMs & retrieval', ['RAG', 'Embeddings', 'pgvector', 'Gemini API']],
   ['Optimization', ['Integer programming', 'PuLP', 'Branch & Bound', 'Genetic algorithms', 'Simulated annealing', 'ALNS', 'Dynamic programming']],
   ['Backend & APIs', ['FastAPI', 'Flask', 'Node.js', 'Express', 'SQLAlchemy', 'JWT', 'Gunicorn', 'Celery']],
-  ['Web & desktop', ['React', 'Next.js', 'Tailwind CSS', 'TanStack Query', 'MapLibre', 'Electron', 'Vite']],
+  ['Web & desktop', ['React', 'Next.js', 'Tailwind CSS', 'TanStack Query', 'MapLibre', 'Electron', 'Vite', 'WebView2', 'Win32 API']],
   ['Mobile', ['Jetpack Compose', 'Material 3', 'Coil', 'DataStore', 'Flutter', 'BLoC', 'Provider', 'GetIt', 'SQLite', 'Hive', 'Firebase Cloud Messaging']],
   ['Data & cloud', ['PostgreSQL', 'PostGIS', 'Redis', 'Supabase', 'Vercel', 'Render', 'Kaggle']],
-  ['Media', ['ExoPlayer', 'ffmpeg', 'WebTorrent', 'yt-dlp', 'Invidious', 'Chromaprint']],
-  ['Quality & DevOps', ['Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Sentry', 'PyInstaller']],
+  ['Media', ['ExoPlayer', 'ffmpeg', 'WebTorrent', 'yt-dlp', 'Invidious', 'Chromaprint', 'PDFium']],
+  ['Quality & DevOps', ['Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Sentry']],
   ['Domains', ['Computer vision', 'NLP', 'Audio', 'Geospatial', 'Sports analytics', 'Security']],
 ];
 

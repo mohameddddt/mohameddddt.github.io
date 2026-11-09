@@ -3,7 +3,7 @@ import { GITHUB } from './site';
 const GH = GITHUB + '/';
 
 export type Cat = 'ml' | 'opt' | 'apps' | 'live';
-export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad' | 'earth' | 'dl';
+export type IconName = 'chart' | 'wave' | 'route' | 'pin' | 'shield' | 'doc' | 'note' | 'play' | 'scan' | 'queue' | 'pulse' | 'image' | 'pad' | 'earth' | 'dl' | 'feather' | 'cal';
 
 export type Project = {
   slug: string;
@@ -312,6 +312,35 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: 'almanac', title: 'Almanac', year: '2026', area: 'Android app', color: 'r2', icon: 'cal', cats: ['apps'],
+    private: true,
+    sub: 'Calendar, clock, tasks and daily rituals in one quiet Android app',
+    headline: 'The whole day on one page.',
+    blurb: 'A calendar, alarms, a to-do list and habit streaks in one Kotlin and Jetpack Compose app with an almanac’s look: the date, the hour, the moon, how the day feels and what is still to do.',
+    platform: 'Android 8+: Kotlin & Jetpack Compose',
+    kpis: [['1.7 MB', 'release APK'], ['5', 'screens in one app'], ['4', 'clock tools'], ['Offline', 'no account, no network']],
+    pills: ['Kotlin', 'Jetpack Compose', 'Material 3'],
+    stack: ['Kotlin', 'Jetpack Compose', 'Material 3'],
+    phones: [
+      { src: '/assets/projects/almanac/today.webp', caption: 'Today: the hour, how far through the day, week and year you are, the moon, a mood and what is on the page.' },
+      { src: '/assets/projects/almanac/calendar.webp', caption: 'Calendar: the month at a glance, with events, due tasks and the day’s mood under each date.' },
+      { src: '/assets/projects/almanac/clock.webp', caption: 'Clock: an analog face above alarms, a timer, a stopwatch and world clocks.' },
+      { src: '/assets/projects/almanac/tasks.webp', caption: 'Tasks: priorities and due dates, with Open, Today, Upcoming and Done views.' },
+      { src: '/assets/projects/almanac/rituals.webp', caption: 'Rituals: daily habits with a streak, the week and the last 30 days.' },
+    ],
+    overview: [
+      'One Android app for the things a day is made of: the calendar, alarms and timers, a to-do list and a few daily rituals. It is styled like a printed almanac, with IBM Plex type, warm paper colours and a floating dock.',
+      'Everything lives in <b>one small JSON file</b> in the app’s private storage, written atomically, so there is no account, no server and no network permission. The screenshots use the app’s built-in starter data.',
+    ],
+    highlights: [
+      'A <b>Today</b> page that reads like the top of a newspaper: weekday, date and week number, a large live clock, progress bars for the day, week and year, the moon’s phase and illumination, a five-tone mood, the day’s tasks and rituals, and an aphorism.',
+      'A month <b>calendar</b> with events, due tasks and moods marked under each date, and a day sheet to add or edit events with a time, a colour and a note.',
+      '<b>Alarms</b> that repeat on chosen weekdays and ring through exact Android alarms, with Dismiss and Snooze actions on the notification, and come back after a reboot. Beside them: a timer, a stopwatch and world clocks.',
+      '<b>Tasks</b> with three priorities and a due date (today, tomorrow, a picked date or someday), filtered into Open, Today, Upcoming and Done; tap to finish, swipe to delete.',
+      '<b>Rituals</b>: daily habits with a running streak, the current week and a 30-day strip, ticked off from Today or their own page.',
+    ],
+  },
+  {
     slug: 'savepoint', title: 'Savepoint', year: '2026', area: 'Android app', color: 'r4', icon: 'pad', cats: ['apps'],
     repo: GH + 'savepoint',
     sub: 'A private video game diary for Android',
@@ -387,11 +416,11 @@ export const PROJECTS: Project[] = [
     links: [{ label: 'Download for Windows', href: GH + 'mytube-invidious/releases/latest' }],
     sub: 'A self-hosted YouTube interface for Windows',
     headline: 'YouTube on my own PC, gone when I close it.',
-    blurb: 'Invidious in Docker inside WSL2 with a hand-written web app on top: search, watch, subscribe without an account and download to the PC. Closing the window shuts it all down.',
-    platform: 'Windows desktop app: Python launcher, Invidious in WSL2',
-    kpis: [['0 MB', 'RAM while stopped'], ['~7 MB', 'single-file desktop app'], ['Stdlib', 'only, for the backend'], ['127.0.0.1', 'every service']],
-    pills: ['Python', 'Invidious', 'Docker', 'yt-dlp'],
-    stack: ['Python', 'JavaScript', 'Invidious', 'Docker', 'PostgreSQL', 'yt-dlp', 'ffmpeg', 'PyInstaller'],
+    blurb: 'Invidious in Docker inside WSL2 with a hand-written web app on top: search, watch, subscribe without an account and download to the PC. One 1.3 MB Rust exe runs it all, and closing the window shuts it all down.',
+    platform: 'Windows desktop app: Rust with a WebView2 window, Invidious in WSL2',
+    kpis: [['0 MB', 'RAM while stopped'], ['1.3 MB', 'single-file desktop app'], ['7 MB', 'local server at idle'], ['127.0.0.1', 'every service']],
+    pills: ['Rust', 'WebView2', 'Invidious', 'Docker', 'yt-dlp'],
+    stack: ['Rust', 'JavaScript', 'WebView2', 'Win32 API', 'Invidious', 'Docker', 'PostgreSQL', 'yt-dlp', 'ffmpeg'],
     shots: [
       { src: '/assets/projects/mytube/feed.webp', caption: 'Feed: the latest from your channels, built on demand without a Google account.' },
       { src: '/assets/projects/mytube/watch.webp', caption: 'Watch: a custom player, with Like, Watch later and Download beside the title.' },
@@ -403,12 +432,45 @@ export const PROJECTS: Project[] = [
       'Subscriptions, history and watch later live in one file behind the local server, so the app window and any browser tab always show the same data.',
     ],
     highlights: [
-      'One click starts the containers, the local server and an Edge app window. Closing the window stops everything and hands WSL’s memory back, so it uses <b>0 MB of RAM while stopped</b>.',
+      'One click starts the containers, the local server and the app window. Closing the window stops everything and hands WSL’s memory back, so it uses <b>0 MB of RAM while stopped</b>.',
       'A custom player with quality and speed menus, picture-in-picture and YouTube’s keyboard shortcuts. It falls back from your downloaded file to DASH, to a 360p stream, to the embedded player.',
       'A small, local and explainable recommender: the feed mixes in videos related to the ones you liked, finished or saved, favours channels you watch often, and says which video each suggestion came from.',
       'Downloads through <b>yt-dlp</b> and ffmpeg, from 480p to 1080p video or MP3, including whole playlists with per-video progress and cancel; videos you already have are skipped.',
-      'The backend is one Python file using only the standard library. Every service listens on 127.0.0.1, download profiles are fixed, video ids are validated and requests with a foreign Host or Origin are refused.',
-      'Built into one exe with PyInstaller and shipped as a signed Inno Setup installer that needs no administrator rights.',
+      'Rewritten from Python to <b>Rust</b>: the launcher and the backend are now one program. A side-by-side test sent the same requests to both versions and found no differences, and the server idles at <b>7 MB instead of 27 MB</b>.',
+      'The window is <b>WebView2</b> in a plain Win32 window instead of an Edge app window: about a third less memory (157 MB against 238 MB), real full screen for videos, and a window that lives exactly as long as the app.',
+      'Every service listens on 127.0.0.1, download profiles are fixed, video ids are validated and requests with a foreign Host or Origin are refused.',
+      'A <b>1.3 MB</b> single-file exe: the build script embeds the interface and writes the icon, version information and manifest itself, so it builds with cargo alone. Shipped as a signed Inno Setup installer that needs no administrator rights.',
+    ],
+  },
+  {
+    slug: 'feather-pdf', title: 'Feather PDF', year: '2026', area: 'Desktop app', color: 'r6', icon: 'feather', cats: ['apps'],
+    repo: GH + 'feather-pdf',
+    links: [{ label: 'Download for Windows', href: GH + 'feather-pdf/releases/latest' }],
+    sub: 'A fast PDF reader for Windows that stays light on memory',
+    headline: 'A PDF reader that weighs almost nothing.',
+    blurb: 'Rust on top of PDFium, with an interface drawn in plain Win32 and GDI: about 16 MB of memory with a 541-page textbook open, and under 70 MB while scrolling, zooming and searching through it.',
+    platform: 'Windows 10 and 11: Rust, Win32 and GDI on PDFium',
+    kpis: [['16 MB', 'with a 541-page book open'], ['< 70 MB', 'reading the whole book'], ['0.8 MB', 'executable'], ['1', 'crate: windows-sys']],
+    pills: ['Rust', 'PDFium', 'Win32 API'],
+    stack: ['Rust', 'PDFium', 'Win32 API'],
+    shotSize: [1200, 800],
+    shots: [
+      { src: '/assets/projects/feather-pdf/reader-dark.webp', caption: 'Reading in dark mode, with the contents sidebar and every search match highlighted.' },
+      { src: '/assets/projects/feather-pdf/reader-light.webp', caption: 'Fit-page view in the light theme, which follows the Windows setting.' },
+      { src: '/assets/projects/feather-pdf/welcome-dark.webp', caption: 'The welcome screen: open a file, or drop one on the window.' },
+      { src: '/assets/projects/feather-pdf/welcome-light.webp', caption: 'The same screen in light mode, with a matching title bar.' },
+    ],
+    overview: [
+      'A PDF reader for Windows written in Rust on top of PDFium. There is no browser engine and no UI framework: the toolbar, scrollbars and welcome screen are drawn with <b>GDI</b>, and the icons come from the Segoe Fluent Icons font that ships with Windows.',
+      'With a 541-page, 21 MB textbook it uses about <b>16 MB</b> of memory after opening and stays <b>under 70 MB</b> while scrolling, zooming and searching through the whole book.',
+    ],
+    highlights: [
+      'Only visible pages are rendered, at screen resolution, into a page cache with a fixed <b>32 MB budget</b> that drops the least recently used pages first and empties when the window is minimized.',
+      'Zoomed far in, only the visible part of a page is rendered, so 800% zoom never needs a huge bitmap; the file itself is read on demand instead of being loaded into memory.',
+      'PDFium keeps fonts and parsed data for every page it has touched. When that grows by more than 32 MB, the reader quietly reopens the document, and what is on screen does not change.',
+      'Continuous scrolling, fit width and fit page, zoom from 10% to 800% that keeps the point under the mouse in place, a bookmarks sidebar, text selection across pages, and search that runs in the background so the window never freezes.',
+      'Remembers the page, zoom and fit mode of every document; dark and light themes follow Windows, and it is per-monitor DPI aware, so pages stay sharp on high-DPI displays.',
+      'Builds with the GNU Rust toolchain and no Visual Studio: <b>build.rs</b> draws the app icon with a small anti-aliased vector rasterizer and writes the Windows resource object by hand.',
     ],
   },
   {
